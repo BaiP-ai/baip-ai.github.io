@@ -38,15 +38,64 @@ const SplineComponent = ({ fallback, scene, onLoad }) => {
   
   return (
     <Suspense fallback={fallback}>
-      <Spline 
-        scene={scene} 
-        onLoad={onLoad}
-        onError={(error) => {
-          console.error('Spline scene error:', error);
-          setErrorMessage('Failed to load Spline scene: ' + (error?.message || 'Access Denied'));
-          setHasError(true);
-        }}
-      />
+      <div className="spline-container w-full h-full relative">
+        {/* Overlay for better contrast with light theme */}
+        <div className="absolute inset-0 bg-gradient-to-b from-sky-50 to-transparent opacity-60 z-10 pointer-events-none"></div>
+        <Spline 
+          scene={scene} 
+          onLoad={(spline) => {
+            if (onLoad) onLoad(spline);
+            
+            // Apply color adjustments to the renderer for better light theme contrast
+            try {
+              if (spline && spline.runtime && spline.runtime.renderer) {
+                // Adjust renderer background color to match light theme
+                spline.runtime.renderer.setClearColor(0xf0f9ff, 0.6); // Light sky blue with some transparency
+                
+                // Enable tone mapping for better contrast
+                spline.runtime.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+                spline.runtime.renderer.toneMappingExposure = 1.2;
+
+                // If ambient lighting exists, increase its intensity
+                if (spline.scene) {
+                  spline.scene.traverse((object) => {
+                    if (object.isLight && object.type === 'AmbientLight') {
+                      object.intensity *= 1.5; // Increase ambient light for better visibility
+                    }
+                    
+                    // Make any dark materials lighter
+                    if (object.isMesh && object.material) {
+                      const materials = Array.isArray(object.material) ? object.material : [object.material];
+                      
+                      materials.forEach(material => {
+                        if (material.color && material.color.getHSL) {
+                          const hsl = {h: 0, s: 0, l: 0};
+                          material.color.getHSL(hsl);
+                          
+                          // For very dark materials, increase lightness
+                          if (hsl.l < 0.2) {
+                            material.color.setHSL(hsl.h, hsl.s, Math.min(hsl.l * 2, 0.5));
+                          }
+                        }
+                      });
+                    }
+                  });
+                }
+              }
+            } catch (e) {
+              console.warn('Failed to adjust Spline renderer for better contrast:', e);
+            }
+          }}
+          onError={(error) => {
+            console.error('Spline scene error:', error);
+            setErrorMessage('Failed to load Spline scene: ' + (error?.message || 'Access Denied'));
+            setHasError(true);
+          }}
+        />
+        
+        {/* Optional light overlay to improve contrast with 3D elements */}
+        <div className="absolute inset-0 bg-sky-200 opacity-10 mix-blend-overlay pointer-events-none"></div>
+      </div>
     </Suspense>
   );
 };
@@ -54,12 +103,12 @@ const SplineComponent = ({ fallback, scene, onLoad }) => {
 // Neural network fallback animation
 const NeuralNetworkFallback = () => {
   return (
-    <div className="w-full h-full bg-gray-900 overflow-hidden relative">
+    <div className="w-full h-full bg-sky-100 overflow-hidden relative">
       {/* Animated nodes */}
       {Array.from({ length: 50 }).map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-2 h-2 bg-blue-400 rounded-full"
+          className="absolute w-2 h-2 bg-orange-400 rounded-full"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
@@ -82,7 +131,7 @@ const NeuralNetworkFallback = () => {
       <svg className="absolute inset-0 w-full h-full z-0">
         <motion.path
           d="M100,250 C150,100 350,100 400,250"
-          stroke="rgba(59, 130, 246, 0.3)"
+          stroke="rgba(249, 115, 22, 0.3)"
           strokeWidth="1"
           fill="transparent"
           initial={{ pathLength: 0 }}
@@ -91,7 +140,7 @@ const NeuralNetworkFallback = () => {
         />
         <motion.path
           d="M200,350 C250,200 300,200 350,350"
-          stroke="rgba(99, 102, 241, 0.3)"
+          stroke="rgba(14, 165, 233, 0.3)"
           strokeWidth="1"
           fill="transparent"
           initial={{ pathLength: 0 }}
@@ -100,7 +149,7 @@ const NeuralNetworkFallback = () => {
         />
         <motion.path
           d="M50,180 C150,150 250,150 450,180"
-          stroke="rgba(147, 197, 253, 0.3)"
+          stroke="rgba(251, 146, 60, 0.3)"
           strokeWidth="1"
           fill="transparent"
           initial={{ pathLength: 0 }}
@@ -115,11 +164,11 @@ const NeuralNetworkFallback = () => {
 // AI modules fallback visualization
 const AIModulesFallback = () => {
   return (
-    <div className="w-full h-full bg-gray-800 overflow-hidden relative">
+    <div className="w-full h-full bg-sky-50 overflow-hidden relative">
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="relative w-64 h-64">
           <motion.div 
-            className="absolute w-32 h-32 bg-blue-600 rounded-xl bg-opacity-20 backdrop-blur-sm"
+            className="absolute w-32 h-32 bg-sky-500 rounded-xl bg-opacity-20 backdrop-blur-sm"
             animate={{ 
               rotate: 360,
               scale: [1, 1.05, 1],
@@ -131,12 +180,12 @@ const AIModulesFallback = () => {
             style={{ left: '0', top: '10%' }}
           >
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-blue-300 font-mono text-sm">Education AI</div>
+              <div className="text-sky-700 font-mono text-sm">Education AI</div>
             </div>
           </motion.div>
           
           <motion.div 
-            className="absolute w-40 h-40 bg-indigo-600 rounded-xl bg-opacity-20 backdrop-blur-sm"
+            className="absolute w-40 h-40 bg-orange-500 rounded-xl bg-opacity-20 backdrop-blur-sm"
             animate={{ 
               rotate: -360,
               scale: [1, 1.1, 1],
@@ -148,14 +197,14 @@ const AIModulesFallback = () => {
             style={{ right: '0', bottom: '10%' }}
           >
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-indigo-300 font-mono text-sm">Enterprise AI</div>
+              <div className="text-orange-700 font-mono text-sm">Enterprise AI</div>
             </div>
           </motion.div>
           
           <motion.svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
             <motion.path
               d="M30,40 C40,20 60,20 70,40"
-              stroke="rgba(147, 197, 253, 0.3)"
+              stroke="rgba(14, 165, 233, 0.3)"
               strokeWidth="0.5"
               fill="transparent"
               initial={{ pathLength: 0 }}
@@ -172,13 +221,13 @@ const AIModulesFallback = () => {
 // Data flow fallback visualization
 const DataFlowFallback = () => {
   return (
-    <div className="w-full h-full overflow-hidden relative bg-gradient-to-br from-blue-900 to-gray-900">
+    <div className="w-full h-full overflow-hidden relative bg-gradient-to-br from-sky-100 to-white">
       <div className="absolute inset-0">
         {/* Data flow lines */}
         <svg className="absolute inset-0 w-full h-full z-0" viewBox="0 0 1000 1000">
           <motion.path
             d="M200,200 C300,100 700,100 800,200 S900,400 800,500 S500,600 200,500 S100,300 200,200"
-            stroke="rgba(59, 130, 246, 0.2)"
+            stroke="rgba(14, 165, 233, 0.2)"
             strokeWidth="2"
             fill="transparent"
             initial={{ pathLength: 0 }}
@@ -187,7 +236,7 @@ const DataFlowFallback = () => {
           />
           <motion.path
             d="M300,300 C400,200 600,200 700,300 S800,500 700,600 S400,700 300,600 S200,400 300,300"
-            stroke="rgba(99, 102, 241, 0.2)"
+            stroke="rgba(249, 115, 22, 0.2)"
             strokeWidth="2"
             fill="transparent"
             initial={{ pathLength: 0 }}
@@ -198,51 +247,51 @@ const DataFlowFallback = () => {
         
         {/* Data nodes */}
         <motion.div
-          className="absolute w-16 h-16 bg-blue-500 rounded-full bg-opacity-30 backdrop-blur-sm flex items-center justify-center"
+          className="absolute w-16 h-16 bg-sky-500 rounded-full bg-opacity-30 backdrop-blur-sm flex items-center justify-center"
           style={{ left: '20%', top: '30%' }}
           animate={{ 
             scale: [1, 1.2, 1],
             boxShadow: [
-              '0 0 0 rgba(59, 130, 246, 0.4)',
-              '0 0 20px rgba(59, 130, 246, 0.6)',
-              '0 0 0 rgba(59, 130, 246, 0.4)'
+              '0 0 0 rgba(14, 165, 233, 0.4)',
+              '0 0 20px rgba(14, 165, 233, 0.6)',
+              '0 0 0 rgba(14, 165, 233, 0.4)'
             ]
           }}
           transition={{ duration: 3, repeat: Infinity }}
         >
-          <span className="text-white text-xs">Privacy</span>
+          <span className="text-sky-800 text-xs">Privacy</span>
         </motion.div>
         
         <motion.div
-          className="absolute w-16 h-16 bg-indigo-500 rounded-full bg-opacity-30 backdrop-blur-sm flex items-center justify-center"
+          className="absolute w-16 h-16 bg-orange-500 rounded-full bg-opacity-30 backdrop-blur-sm flex items-center justify-center"
           style={{ right: '20%', top: '40%' }}
           animate={{ 
             scale: [1, 1.2, 1],
             boxShadow: [
-              '0 0 0 rgba(99, 102, 241, 0.4)',
-              '0 0 20px rgba(99, 102, 241, 0.6)',
-              '0 0 0 rgba(99, 102, 241, 0.4)'
+              '0 0 0 rgba(249, 115, 22, 0.4)',
+              '0 0 20px rgba(249, 115, 22, 0.6)',
+              '0 0 0 rgba(249, 115, 22, 0.4)'
             ]
           }}
           transition={{ duration: 3, repeat: Infinity, delay: 1 }}
         >
-          <span className="text-white text-xs">Ethics</span>
+          <span className="text-orange-800 text-xs">Ethics</span>
         </motion.div>
         
         <motion.div
-          className="absolute w-16 h-16 bg-purple-500 rounded-full bg-opacity-30 backdrop-blur-sm flex items-center justify-center"
+          className="absolute w-16 h-16 bg-sky-400 rounded-full bg-opacity-30 backdrop-blur-sm flex items-center justify-center"
           style={{ left: '50%', bottom: '20%' }}
           animate={{ 
             scale: [1, 1.2, 1],
             boxShadow: [
-              '0 0 0 rgba(139, 92, 246, 0.4)',
-              '0 0 20px rgba(139, 92, 246, 0.6)',
-              '0 0 0 rgba(139, 92, 246, 0.4)'
+              '0 0 0 rgba(56, 189, 248, 0.4)',
+              '0 0 20px rgba(56, 189, 248, 0.6)',
+              '0 0 0 rgba(56, 189, 248, 0.4)'
             ]
           }}
           transition={{ duration: 3, repeat: Infinity, delay: 2 }}
         >
-          <span className="text-white text-xs">Compliance</span>
+          <span className="text-sky-800 text-xs">Compliance</span>
         </motion.div>
       </div>
     </div>
@@ -377,25 +426,25 @@ const HomePage = () => {
   }, [scrollYProgress, heroSpline]);
 
   return (
-    <div className="bg-gray-900 text-white">
+    <div className="bg-sky-50 text-gray-800">
       {/* Fixed Header */}
       <motion.header
         style={{ opacity: headerOpacity, y: headerY }}
-        className="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-gray-900 to-transparent py-4"
+        className="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-sky-100 to-transparent py-4"
       >
         <div className="container mx-auto px-6 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">BaiP</h1>
+          <h1 className="text-2xl font-bold text-orange-500">BaiP</h1>
           <nav className="hidden md:flex space-x-8">
-            <a href="#features" className="hover:text-blue-400 transition-colors">Services</a>
-            <a href="#approach" className="hover:text-blue-400 transition-colors">Our Approach</a>
-            <a href="#contact" className="hover:text-blue-400 transition-colors">Contact</a>
+            <a href="#features" className="text-sky-800 hover:text-orange-500 transition-colors">Services</a>
+            <a href="#approach" className="text-sky-800 hover:text-orange-500 transition-colors">Our Approach</a>
+            <a href="#contact" className="text-sky-800 hover:text-orange-500 transition-colors">Contact</a>
           </nav>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm">Schedule Demo</button>
+          <button className="bg-orange-500 text-white px-4 py-2 rounded-full text-sm hover:bg-orange-600 transition-colors">Schedule Demo</button>
         </div>
       </motion.header>
 
       {/* Hero Section with Neural Network 3D */}
-      <Section id="hero" className="bg-gray-900">
+      <Section id="hero" className="bg-sky-100">
         {/* 3D AI Brain Network Visualization */}
         <div className="absolute inset-0 w-full h-full z-0">
           <SplineComponent
@@ -413,18 +462,18 @@ const HomePage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              <h1 className="text-6xl font-bold mb-4 leading-tight">
-                AI That <span className="text-blue-500">Moves You</span> Forward
+              <h1 className="text-6xl font-bold mb-4 leading-tight text-sky-800">
+                AI That <span className="text-orange-500">Moves You</span> Forward
               </h1>
-              <p className="text-xl text-gray-300 mb-8">
+              <p className="text-xl text-sky-700 mb-8">
                 Boston AI Partners builds transparent, ethical, and powerful AI solutions
                 that turn complex challenges into opportunities.
               </p>
               <div className="flex space-x-4">
-                <button className="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-full font-medium transition-all">
+                <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-medium transition-all">
                   Our Services
                 </button>
-                <button className="bg-transparent border border-white hover:border-blue-500 hover:text-blue-500 px-8 py-3 rounded-full font-medium transition-all">
+                <button className="bg-transparent border border-sky-600 text-sky-700 hover:border-orange-500 hover:text-orange-500 px-8 py-3 rounded-full font-medium transition-all">
                   Learn More
                 </button>
               </div>
@@ -437,13 +486,13 @@ const HomePage = () => {
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           >
-            <FaArrowDown className="text-white opacity-70" />
+            <FaArrowDown className="text-sky-700 opacity-70" />
           </motion.div>
         </div>
       </Section>
 
       {/* Features/Services Section with Interactive AI Modules */}
-      <Section id="features" className="bg-gray-800">
+      <Section id="features" className="bg-white">
         <div className="absolute right-0 top-0 w-1/2 h-full z-0">
           <SplineComponent
             fallback={<AIModulesFallback />}
@@ -460,7 +509,7 @@ const HomePage = () => {
             transition={{ duration: 0.6 }}
             className="max-w-2xl"
           >
-            <h2 className="text-4xl font-bold mb-16 text-white">Our AI Solutions</h2>
+            <h2 className="text-4xl font-bold mb-16 text-sky-800">Our AI Solutions</h2>
 
             <div className="space-y-16">
               <motion.div 
@@ -468,7 +517,7 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="bg-gray-900 bg-opacity-70 backdrop-blur-md p-8 rounded-2xl"
+                className="bg-sky-50 shadow-lg p-8 rounded-2xl"
                 whileHover={{ scale: 1.02 }}
                 onHoverStart={() => {
                   try {
@@ -477,19 +526,19 @@ const HomePage = () => {
                 }}
               >
                 <div className="flex items-start">
-                  <div className="mr-6 p-3 bg-blue-600 rounded-xl">
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                  <div className="mr-6 p-3 bg-orange-500 rounded-xl">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v10.494C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold mb-4 text-white">Global Education AI</h3>
-                    <p className="text-gray-300">
+                    <h3 className="text-2xl font-bold mb-4 text-sky-800">Global Education AI</h3>
+                    <p className="text-sky-700">
                       Our flagship AI platform automates and optimizes the university application process
                       for international students—from eligibility checks to personalized insights.
                     </p>
                     <button 
-                      className="mt-4 text-blue-400 hover:text-blue-300 flex items-center"
+                      className="mt-4 text-orange-500 hover:text-orange-600 flex items-center"
                       onClick={() => {
                         try {
                           featuresSpline.animateObject('Education_Module', 'highlight');
@@ -510,7 +559,7 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-gray-900 bg-opacity-70 backdrop-blur-md p-8 rounded-2xl"
+                className="bg-sky-50 shadow-lg p-8 rounded-2xl"
                 whileHover={{ scale: 1.02 }}
                 onHoverStart={() => {
                   try {
@@ -519,19 +568,19 @@ const HomePage = () => {
                 }}
               >
                 <div className="flex items-start">
-                  <div className="mr-6 p-3 bg-indigo-600 rounded-xl">
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <div className="mr-6 p-3 bg-sky-600 rounded-xl">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold mb-4 text-white">Enterprise AI Solutions</h3>
-                    <p className="text-gray-300">
+                    <h3 className="text-2xl font-bold mb-4 text-sky-800">Enterprise AI Solutions</h3>
+                    <p className="text-sky-700">
                       We help Fortune 500 companies train, optimize, and align internal AI platforms
                       to extract insights from proprietary data and create custom AI assistants.
                     </p>
                     <button 
-                      className="mt-4 text-indigo-400 hover:text-indigo-300 flex items-center"
+                      className="mt-4 text-sky-600 hover:text-sky-700 flex items-center"
                       onClick={() => {
                         try {
                           featuresSpline.animateObject('Enterprise_Module', 'highlight');
@@ -552,7 +601,7 @@ const HomePage = () => {
       </Section>
 
       {/* Our Approach Section with Data Flow Visualization */}
-      <Section id="approach" className="bg-gradient-to-br from-blue-900 to-gray-900">
+      <Section id="approach" className="bg-gradient-to-br from-sky-200 to-white">
         <div className="absolute left-0 top-0 w-full h-full z-0 opacity-70">
           <SplineComponent
             fallback={<DataFlowFallback />}
@@ -568,7 +617,7 @@ const HomePage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-4xl font-bold mb-6"
+              className="text-4xl font-bold mb-6 text-sky-800"
             >
               Our Approach: AI You Can Trust
             </motion.h2>
@@ -577,7 +626,7 @@ const HomePage = () => {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-xl text-blue-100"
+              className="text-xl text-sky-700"
             >
               We build AI that respects privacy, ensures transparency, and delivers real business outcomes.
             </motion.p>
@@ -589,10 +638,10 @@ const HomePage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-gray-800 bg-opacity-50 backdrop-blur-sm p-6 rounded-xl"
+              className="bg-white shadow-lg p-6 rounded-xl"
               whileHover={{ 
                 scale: 1.03,
-                boxShadow: "0 0 20px rgba(59, 130, 246, 0.5)"
+                boxShadow: "0 0 20px rgba(14, 165, 233, 0.3)"
               }}
               onHoverStart={() => {
                 try {
@@ -600,13 +649,13 @@ const HomePage = () => {
                 } catch(e) {}
               }}
             >
-              <div className="h-16 w-16 bg-blue-600 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <div className="h-16 w-16 bg-orange-500 rounded-lg flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-4">Regulatory Compliance</h3>
-              <p className="text-gray-300">
+              <h3 className="text-xl font-bold mb-4 text-sky-800">Regulatory Compliance</h3>
+              <p className="text-sky-700">
                 We build systems that comply with GDPR, the EU AI Act, and work toward SOC 2 certification
                 to ensure your data is handled with the highest standards.
               </p>
@@ -617,10 +666,10 @@ const HomePage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-gray-800 bg-opacity-50 backdrop-blur-sm p-6 rounded-xl"
+              className="bg-white shadow-lg p-6 rounded-xl"
               whileHover={{ 
                 scale: 1.03,
-                boxShadow: "0 0 20px rgba(59, 130, 246, 0.5)"
+                boxShadow: "0 0 20px rgba(14, 165, 233, 0.3)"
               }}
               onHoverStart={() => {
                 try {
@@ -628,13 +677,13 @@ const HomePage = () => {
                 } catch(e) {}
               }}
             >
-              <div className="h-16 w-16 bg-blue-600 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <div className="h-16 w-16 bg-sky-500 rounded-lg flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-4">Data Privacy</h3>
-              <p className="text-gray-300">
+              <h3 className="text-xl font-bold mb-4 text-sky-800">Data Privacy</h3>
+              <p className="text-sky-700">
                 Your data stays yours. We implement strong encryption, secure processing pipelines,
                 and transparent data handling practices in every solution.
               </p>
@@ -645,10 +694,10 @@ const HomePage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="bg-gray-800 bg-opacity-50 backdrop-blur-sm p-6 rounded-xl"
+              className="bg-white shadow-lg p-6 rounded-xl"
               whileHover={{ 
                 scale: 1.03,
-                boxShadow: "0 0 20px rgba(59, 130, 246, 0.5)"
+                boxShadow: "0 0 20px rgba(14, 165, 233, 0.3)"
               }}
               onHoverStart={() => {
                 try {
@@ -656,13 +705,13 @@ const HomePage = () => {
                 } catch(e) {}
               }}
             >
-              <div className="h-16 w-16 bg-blue-600 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <div className="h-16 w-16 bg-orange-500 rounded-lg flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-4">Ethical AI</h3>
-              <p className="text-gray-300">
+              <h3 className="text-xl font-bold mb-4 text-sky-800">Ethical AI</h3>
+              <p className="text-sky-700">
                 We integrate bias detection, fairness testing, and model explainability into our 
                 AI development lifecycle to ensure responsible outcomes.
               </p>
@@ -672,10 +721,10 @@ const HomePage = () => {
       </Section>
 
       {/* Contact Section */}
-      <Section id="contact" className="bg-gray-900">
+      <Section id="contact" className="bg-sky-50">
         <div className="container mx-auto px-6 py-20">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-gray-800 rounded-2xl p-8 md:p-12 shadow-xl">
+            <div className="bg-white rounded-2xl p-8 md:p-12 shadow-xl">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -683,8 +732,8 @@ const HomePage = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-12"
               >
-                <h2 className="text-4xl font-bold mb-4">Let's Build the Future of AI—Together</h2>
-                <p className="text-xl text-gray-300">
+                <h2 className="text-4xl font-bold mb-4 text-sky-800">Let's Build the Future of AI—Together</h2>
+                <p className="text-xl text-sky-700">
                   Are you a university agency, enterprise leader, or investor looking to harness AI responsibly?
                 </p>
               </motion.div>
@@ -696,33 +745,33 @@ const HomePage = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <h3 className="text-2xl font-bold mb-6">Contact Us</h3>
+                  <h3 className="text-2xl font-bold mb-6 text-sky-800">Contact Us</h3>
                   <form className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium mb-1" htmlFor="name">Name</label>
+                      <label className="block text-sm font-medium mb-1 text-sky-700" htmlFor="name">Name</label>
                       <input 
                         id="name" 
                         type="text" 
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-sky-50 border border-sky-200 rounded-lg px-4 py-2 text-sky-800 focus:outline-none focus:ring-2 focus:ring-orange-500"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-1" htmlFor="email">Email</label>
+                      <label className="block text-sm font-medium mb-1 text-sky-700" htmlFor="email">Email</label>
                       <input 
                         id="email" 
                         type="email" 
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-sky-50 border border-sky-200 rounded-lg px-4 py-2 text-sky-800 focus:outline-none focus:ring-2 focus:ring-orange-500"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-1" htmlFor="message">Message</label>
+                      <label className="block text-sm font-medium mb-1 text-sky-700" htmlFor="message">Message</label>
                       <textarea 
                         id="message" 
                         rows="4" 
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-sky-50 border border-sky-200 rounded-lg px-4 py-2 text-sky-800 focus:outline-none focus:ring-2 focus:ring-orange-500"
                       ></textarea>
                     </div>
-                    <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-all">
+                    <button className="w-full bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-medium transition-all">
                       Send Message
                     </button>
                   </form>
@@ -736,29 +785,29 @@ const HomePage = () => {
                   className="space-y-8"
                 >
                   <div>
-                    <h3 className="text-2xl font-bold mb-6">Boston AI Partners</h3>
-                    <p className="text-gray-300 mb-4">
+                    <h3 className="text-2xl font-bold mb-6 text-sky-800">Boston AI Partners</h3>
+                    <p className="text-sky-700 mb-4">
                       Our mission is to make AI accessible, ethical, and impactful for organizations worldwide.
                     </p>
                     <div className="flex space-x-4 mt-6">
-                      <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
+                      <a href="#" className="text-sky-500 hover:text-orange-500 transition-colors">
                         <FaLinkedin size={24} />
                       </a>
-                      <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
+                      <a href="#" className="text-sky-500 hover:text-orange-500 transition-colors">
                         <FaTwitter size={24} />
                       </a>
-                      <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
+                      <a href="#" className="text-sky-500 hover:text-orange-500 transition-colors">
                         <FaGlobe size={24} />
                       </a>
                     </div>
                   </div>
 
                   <div>
-                    <h4 className="text-xl font-semibold mb-4">Schedule a Demo</h4>
-                    <p className="text-gray-300 mb-4">
+                    <h4 className="text-xl font-semibold mb-4 text-sky-800">Schedule a Demo</h4>
+                    <p className="text-sky-700 mb-4">
                       See our AI solutions in action with a personalized demonstration.
                     </p>
-                    <button className="bg-transparent border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white px-6 py-3 rounded-lg font-medium transition-all">
+                    <button className="bg-transparent border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-6 py-3 rounded-lg font-medium transition-all">
                       Book Demo Session
                     </button>
                   </div>
@@ -770,16 +819,16 @@ const HomePage = () => {
       </Section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 border-t border-gray-800 py-10">
+      <footer className="bg-white border-t border-sky-100 py-10">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-6 md:mb-0">
-              <p>© 2025 Boston AI Partners. All rights reserved.</p>
+              <p className="text-sky-700">© 2025 Boston AI Partners. All rights reserved.</p>
             </div>
             <div className="flex space-x-8">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Contact</a>
+              <a href="#" className="text-sky-600 hover:text-orange-500 transition-colors">Privacy Policy</a>
+              <a href="#" className="text-sky-600 hover:text-orange-500 transition-colors">Terms of Service</a>
+              <a href="#" className="text-sky-600 hover:text-orange-500 transition-colors">Contact</a>
             </div>
           </div>
         </div>
