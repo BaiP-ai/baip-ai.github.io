@@ -393,17 +393,36 @@ const HomePage = () => {
   const featuresSpline = useSplineObject();
   const approachSpline = useSplineObject();
   
-  // Update the Spline scene to a different public one or switch to a local file
-  // Option 1: Try one of these public Spline examples that should be accessible
-  const publicDemoScene = "https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"; 
-  // or try "https://prod.spline.design/cTSoKL-VADsT9XZf/scene.splinecode"
+  // Using the Spline scene URL provided by the user
+  const publicDemoScene = "https://prod.spline.design/Hjo6OjP0p14E2W7E/scene.splinecode"; 
+  // Alternative public scenes in case the above doesn't work
+  const fallbackScenes = [
+    "https://prod.spline.design/NCDXLIwgFzxM7aMb/scene.splinecode", // Public demo scene
+    "https://prod.spline.design/oJsJEZxlJf0f3Ixb/scene.splinecode"  // Alternative public demo
+  ];
   
-  // Option 2: If you have your own Spline scene uploaded, use that URL instead
-  // const publicDemoScene = "YOUR_SPLINE_SCENE_URL";
+  // State to track Spline loading failures and switch to alternatives
+  const [currentSceneIndex, setCurrentSceneIndex] = useState(0);
+  const [splineLoadFailed, setSplineLoadFailed] = useState(false);
   
-  // Option 3: Use a local file if you've downloaded a .splinecode file
-  // const localDemoScene = "/your-local-scene.splinecode";
+  // Get the current scene to use based on failures
+  const getCurrentScene = () => {
+    if (currentSceneIndex === 0) return publicDemoScene;
+    if (currentSceneIndex <= fallbackScenes.length) return fallbackScenes[currentSceneIndex - 1];
+    return null; // If all scenes fail, will trigger fallback component
+  };
   
+  // Handle Spline error by switching to next scene
+  const handleSplineError = () => {
+    if (currentSceneIndex < fallbackScenes.length) {
+      console.log(`Switching to fallback scene ${currentSceneIndex + 1}`);
+      setCurrentSceneIndex(prev => prev + 1);
+    } else {
+      console.log('All Spline scenes failed, using fallback visualizations');
+      setSplineLoadFailed(true);
+    }
+  };
+
   // Scroll-based animations for the hero Spline scene
   useEffect(() => {
     const unsubscribe = scrollYProgress.onChange((value) => {
@@ -447,11 +466,8 @@ const HomePage = () => {
       <Section id="hero" className="bg-sky-100">
         {/* 3D AI Brain Network Visualization */}
         <div className="absolute inset-0 w-full h-full z-0">
-          <SplineComponent
-            fallback={<NeuralNetworkFallback />}
-            scene={publicDemoScene}
-            onLoad={heroSpline.handleLoad}
-          />
+          {/* Spline iframe as requested */}
+          <iframe src='https://my.spline.design/3dpathsplaygroundcopy-FWfYB0JsBMJelS97tb6qGaHV/' frameborder='0' width='100%' height='100%'></iframe>
         </div>
 
         {/* Hero Content */}
@@ -494,11 +510,8 @@ const HomePage = () => {
       {/* Features/Services Section with Interactive AI Modules */}
       <Section id="features" className="bg-white">
         <div className="absolute right-0 top-0 w-1/2 h-full z-0">
-          <SplineComponent
-            fallback={<AIModulesFallback />}
-            scene={publicDemoScene}
-            onLoad={featuresSpline.handleLoad}
-          />
+          {/* Second Spline iframe */}
+          <iframe src='https://my.spline.design/3dpathsplaygroundcopy-FWfYB0JsBMJelS97tb6qGaHV/' frameborder='0' width='100%' height='100%'></iframe>
         </div>
 
         <div className="container mx-auto px-6 py-20 relative z-10">
@@ -603,11 +616,8 @@ const HomePage = () => {
       {/* Our Approach Section with Data Flow Visualization */}
       <Section id="approach" className="bg-gradient-to-br from-sky-200 to-white">
         <div className="absolute left-0 top-0 w-full h-full z-0 opacity-70">
-          <SplineComponent
-            fallback={<DataFlowFallback />}
-            scene={publicDemoScene}
-            onLoad={approachSpline.handleLoad}
-          />
+          {/* Third Spline iframe */}
+          <iframe src='https://my.spline.design/3dcitynavigation-tdA8v3ycXksX8DX1GH0IZip0/' frameborder='0' width='100%' height='100%'></iframe>
         </div>
 
         <div className="container mx-auto px-6 py-20 relative z-10">
