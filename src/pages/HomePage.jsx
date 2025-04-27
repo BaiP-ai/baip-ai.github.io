@@ -496,13 +496,32 @@ const HomePage = () => {
             </motion.div>
           </div>
 
-          {/* Scroll Indicator */}
+          {/* Stylish Arrow Button positioned at the bottom of the Spline frame */}
           <motion.div 
             className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ 
+              duration: 0.8, 
+              delay: 1.5,
+              type: "spring",
+              stiffness: 100
+            }}
           >
-            <FaArrowDown className="text-sky-700 opacity-70" />
+            <motion.div 
+              className="flex flex-col items-center"
+              animate={{ y: [0, 20, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <div 
+                className="cursor-pointer bg-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-110 border-2 border-orange-500"
+                onClick={() => {
+                  document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <FaArrowDown className="text-orange-500 text-2xl" />
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </Section>
