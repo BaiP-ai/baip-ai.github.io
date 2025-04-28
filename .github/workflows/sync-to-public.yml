@@ -3,7 +3,7 @@ name: Sync to Public Repository and Build
 on:
   push:
     branches:
-      - 3-push-to-public-repo  # Your feature branch (change to main when ready)
+      - main  # Your feature branch (change to main when ready)
 
 jobs:
   sync-and-build:
@@ -32,7 +32,7 @@ jobs:
       - name: Push to public repository
         run: |
           git remote add public git@github.com:baip-ai/baip-ai.github.io.git
-          git push public 3-push-to-public-repo:main --force
+          git push public main:main --force
 
       # Clone the public repo using SSH instead of HTTPS
       - name: Checkout public repository
