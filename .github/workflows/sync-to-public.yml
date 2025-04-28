@@ -3,7 +3,7 @@ name: Sync to Public Repository
 on:
   push:
     branches:
-      - main
+      - 3-push-to-public-repo
 
 jobs:
   sync:
@@ -25,6 +25,6 @@ jobs:
           git remote add public https://${{ secrets.SYNC_TOKEN }}@github.com/baip-ai/baip-ai.github.io.git
           
           # Push to the public repository's main branch
-          git push public main:main --force
+          git push public 3-push-to-public-repo:main --force
         env:
           SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
