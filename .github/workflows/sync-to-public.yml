@@ -1,12 +1,12 @@
-name: Sync to Public Repository
+name: Sync to Public Repository and Build
 
 on:
   push:
     branches:
-      - 3-push-to-public-repo  # Your feature branch
+      - 3-push-to-public-repo  # Your feature branch (change to main when ready)
 
 jobs:
-  sync:
+  sync-and-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout private repository
@@ -33,3 +33,33 @@ jobs:
         run: |
           git remote add public git@github.com:baip-ai/baip-ai.github.io.git
           git push public 3-push-to-public-repo:main --force
+
+      # Clone the public repo using SSH instead of HTTPS
+      - name: Checkout public repository
+        run: |
+          git clone git@github.com:baip-ai/baip-ai.github.io.git public-repo
+          cd public-repo
+          git checkout main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: public-repo/package-lock.json
+
+      - name: Install dependencies
+        run: cd public-repo && npm ci
+
+      - name: Build site
+        run: cd public-repo && npm run build
+
+      # Commit and push the built files using SSH
+      - name: Commit and push built files
+        run: |
+          cd public-repo
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Build site from private repo changes" || echo "No changes to commit"
+          git push origin main
