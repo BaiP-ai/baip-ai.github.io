@@ -44,7 +44,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
           cache-dependency-path: public-repo/package-lock.json
 
@@ -58,8 +58,11 @@ jobs:
       - name: Commit and push built files
         run: |
           cd public-repo
+          sed -i '/^node_modules$/d' .gitignore
+          sed -i '/^dist$/d' .gitignore
+          sed -i '/^dist-ssr$/d' .gitignore
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add -A
           git commit -m "Build site from private repo changes" || echo "No changes to commit"
-          git push origin main
+          git push origin main --force
