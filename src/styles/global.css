@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    /* Updated background to light and text to dark */
+    @apply font-sans text-dark bg-light; /* Changed from dark gradient */
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    /* Lighter gray, more transparent bg, subtle border, added transition */
+    @apply bg-gray-100/80 backdrop-blur-sm border border-gray-300/50 rounded-2xl shadow-lg transition-all duration-300 ease-out; 
+    /* Was: bg-light/75 backdrop-blur-xs border border-dark/5 */
+    transform-style: preserve-3d; /* Enable 3D transforms */
+  }
+
+  .glass-panel:hover {
+    /* Subtle 3D tilt and scale effect on hover */
+    @apply shadow-xl;
+    transform: scale(1.02) rotateX(2deg) rotateY(3deg);
+  }
+
+  /* New class for panels on dark backgrounds */
+  .glass-panel-dark {
+    /* Slightly increased opacity, added subtle inner shadow */
+    @apply bg-dark/70 backdrop-blur-lg border border-white/10 rounded-2xl shadow-lg transition-all duration-300 ease-out shadow-[inset_0_1px_2px_0_rgba(255,255,255,0.05)];
+    transform-style: preserve-3d;
+  }
+
+  .glass-panel-dark:hover {
+    @apply shadow-xl border-white/20 bg-dark/75; /* Slightly lighten on hover */
+    transform: scale(1.02) rotateX(2deg) rotateY(3deg);
+  }
+
+  .section-heading {
+    /* Updated gradient for headings */
+    @apply text-4xl md:text-5xl font-display font-bold mb-8 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+
+  .cta-button {
+    /* Base styles for CTA button */
+    @apply bg-gradient-to-r from-primary to-secondary px-6 py-3 rounded-full font-medium text-white shadow-lg transition-all duration-300 inline-block; /* Changed text-dark to text-white */
+  }
+
+  .cta-button:hover {
+    /* Apply glow shadow directly on hover */
+    box-shadow: 0 0 15px 5px rgba(0, 255, 163, 0.4); /* Use the value from tailwind.config.mjs */
+  }
+
+  .input-field {
+    /* Updated input field style - corrected placeholder application */
+    /* Ensure placeholder text is visible on light background */
+    @apply bg-gray-100 border border-gray-300 rounded-lg w-full p-3 focus:ring-2 focus:ring-primary/50 outline-none placeholder:text-gray-500;
+  }
+}
+
+/* Keep existing animations */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delay {
+  animation: float 6s ease-in-out 2s infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.perspective-container {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}

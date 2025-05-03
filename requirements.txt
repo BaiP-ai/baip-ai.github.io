@@ -1,0 +1,79 @@
+# Boston AI Partners Website
+
+A modern, responsive website for Boston AI Partners (BaiP) with a modern UI library, featuring animated UI components and Supabase integration for contact form  with an email alert functionality to the administrators.
+
+## Features
+
+- Responsive single page application design using very nice UI components
+- Modern UI with transparent glass effects and animations using Framer Motion
+- Contact form with Supabase backend integration with email alert functionality
+- Optimized for performance and SEO
+- Professional and clean design UI
+- Easy to use and maintain
+
+
+## Content
+### Welcome to Boston AI Partners (BaiP)
+Empowering the future with responsible, real-world AI
+At BaiP, we’re building the next generation of AI products and services that turn complex challenges into opportunities. 
+We believe AI should be transparent, ethical, and powerful—fueling innovation across industries while respecting people and data.
+
+#### What We Do
+##### AI Products – Starting with Global Education
+Our first product supports agencies helping students apply to universities abroad.
+This AI-driven platform automates and optimizes the application journey—from eligibility checks and document prep to deadline tracking and personalized insights. It’s our Launchpad product and proof of our technical excellence and mission.
+
+##### AI Services – Strategic AI for Enterprises
+We consult with Fortune 500 companies to help them train, optimize, and align internal AI platforms.
+ We help clients:
+ - Answer business questions using internal data
+
+ - Create custom GPTs and copilots
+
+ - Align AI investments with real business outcomes
+
+
+
+#### Our Approach: AI You Can Trust
+We take data privacy, regulatory compliance, and ethical AI seriously.
+
+##### Governance & Compliance:
+ - GDPR: We comply with the EU’s General Data Protection Regulation to protect personal data
+
+
+ - EU AI Act: We follow the latest guidelines for transparency, accountability, and safety in high-risk AI systems
+
+
+ - SOC 2 (coming soon): We are working toward SOC 2 compliance to reinforce trust in our infrastructure and data handling
+
+
+ - Responsible AI Practices: Model auditability, bias reduction, and fairness checks are built into every phase of our AI lifecycle
+
+
+[Visual Sidebar: Shield Icon + Text “Committed to Responsible AI”]
+
+#### Why BaiP
+ - Human-Centered Design: We prioritize usability and positive real-world impact
+
+
+ - Scalable Architecture: Our solutions grow with your business
+
+
+ - Global Perspective: We support clients across industries and geographies
+
+
+
+#### Let’s Build the Future of AI—Together
+Are you a university agency, enterprise leader, or investor looking to harness AI responsibly?
+ Let’s talk.
+[Call-to-Action Button: "Contact Us"]
+ [Social Icons: LinkedIn | Twitter | Website]
+
+#### Optional Visual Enhancements:
+ - Animated hero section: showing AI models responding to human prompts
+
+
+ - Timeline illustration: BaiP’s roadmap: “Launchpad Product → Fortune 500 Services → Responsible AI Ecosystem”
+
+
+ - Client testimonials: placeholders for future partner feedback

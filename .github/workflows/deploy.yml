@@ -1,0 +1,85 @@
+name: Sync to Public Repository and Build
+
+on:
+  push:
+    branches: [main, staging, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  sync-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout private repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+          
+      - name: Set up Git identity
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+      - name: Add GitHub.com to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      - name: Push to public repository
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git remote add public git@github.com:baip-ai/baip-ai.github.io.git
+          git push public main:main --force
+
+      # Clone the public repo using SSH instead of HTTPS
+      - name: Checkout public repository
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git clone git@github.com:baip-ai/baip-ai.github.io.git public-repo
+          cd public-repo
+          git checkout main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ${{ github.ref == 'refs/heads/main' && 'public-repo/package-lock.json' || 'package-lock.json' }}
+
+      - name: Install dependencies
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            cd public-repo && npm ci
+          else
+            npm ci
+          fi
+
+      - name: Build site
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            cd public-repo && npm run build
+          else
+            npm run build
+          fi
+        env:
+          PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+
+      # Commit and push the built files using SSH (only for main branch)
+      - name: Commit and push built files
+        if: github.ref == 'refs/heads/main'
+        run: |
+          cd public-repo
+          sed -i '/^node_modules$/d' .gitignore
+          sed -i '/^dist$/d' .gitignore
+          sed -i '/^dist-ssr$/d' .gitignore
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Build site from private repo changes" || echo "No changes to commit"
+          git push origin main --force
