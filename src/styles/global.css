@@ -65,6 +65,11 @@
   }
 }
 
+/* Added border gradient for navbar */
+.border-b-gradient {
+  border-image: linear-gradient(to right, #2563EB, #7C3AED) 1;
+}
+
 /* Keep existing animations */
 .animate-float {
   animation: float 6s ease-in-out infinite;
