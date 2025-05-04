@@ -79,11 +79,26 @@ import ContactModalTrigger from '../components/ContactModalTrigger';
     </div>
   </section>
   
-  <!-- Services Section -->
-  <section id="services" class="py-20 md:py-32 bg-dark/80 relative"> 
-    <div class="absolute inset-0 bg-gradient-to-b from-primary/10 via-secondary/5 to-transparent pointer-events-none"></div>
-    <div class="container mx-auto px-4">
-      <h2 class="section-heading text-center">What We Do</h2>
+  <!-- Services Section - Fixed the unwanted horizontal line issue -->
+  <section id="services" class="py-20 md:py-32 bg-dark/80 relative overflow-hidden">
+    <!-- Background particles effect -->
+    <div class="absolute inset-0 particle-container">
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+    </div>
+    
+    <!-- Removed the top gradient line that was causing the issue -->
+    <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <!-- Fixing the heading styling to avoid horizontal line above it -->
+      <div class="mb-16">
+        <h2 class="section-heading text-center mb-4">What We Do</h2>
+        <p class="text-center text-light/80 max-w-2xl mx-auto">
+          Our AI solutions evolve with emerging technologies and market needs, delivering value at every stage of development.
+        </p>
+      </div>
       
       <div class="mt-12">
         <ServicesTimeline client:visible />
