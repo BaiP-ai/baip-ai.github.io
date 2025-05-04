@@ -115,13 +115,13 @@ const AnimatedAIResponse = () => {
           {/* Simple icon placeholder for avatar */}
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17.25v-.172c0-.969.525-1.841 1.34-2.318.31-.18.65-.29 1.008-.29h.013c.358 0 .707.11 1.008.29.815.477 1.34 1.349 1.34 2.318v.172M12 10.5a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 9 0 11-18 0 9 9 9 0118 0z" />
           </svg>
         </div>
 
         {/* Response Content */}
         <div class="flex-grow">
-          <span class="text-sm font-medium text-primary block mb-1">BaiP Assistant:</span> {/* Make label block */}
+          <span class="text-sm font-medium text-primary block mb-1">Boston AI Partners Assistant:</span> {/* Updated from BaiP Assistant */}
           {/* Use slightly darker text for response */}
           <p class="text-gray-800"> 
             {typedText()}

@@ -1,4 +1,5 @@
 import { Motion } from '@motionone/solid';
+import AILogoChip from './AILogoChip';
 
 // Import the same function used in the Navbar
 const openContactModal = () => {
@@ -14,8 +15,13 @@ const Footer = () => {
         <div class="grid md:grid-cols-3 gap-8 mb-12">
           <div>
             <div class="flex items-center mb-4">
-              <img src="/images/ai-logo.svg" alt="BaiP Logo" class="h-10 mr-3" />
-              <div class="text-2xl font-display font-bold text-blue-600">BaiP</div>
+              <AILogoChip size="70" class="mr-4" />
+              <div class="flex flex-col">
+                <div class="text-xl lg:text-2xl font-display font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  Boston AI Partners
+                </div>
+                <span class="text-sm text-gray-500">Responsible AI Solutions</span>
+              </div>
             </div>
             <p class="text-dark/80 max-w-xs">
               Empowering the future with responsible, real-world AI solutions that respect people and data.

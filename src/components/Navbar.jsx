@@ -1,4 +1,5 @@
 import { createSignal, onMount } from 'solid-js';
+import AILogoChip from './AILogoChip';
 
 // Function to dispatch a custom event to open the modal
 const openContactModal = () => {
@@ -80,17 +81,18 @@ const Navbar = () => {
       <div class="container mx-auto px-4">
         <div class="flex items-center justify-between">
           <a href="/" class="flex items-center group">
-            <div class="relative overflow-hidden mr-3">
-              <img 
-                src="/images/ai-logo.svg" 
-                alt="BaiP AI Logo" 
-                class="h-10 transition-transform duration-300 group-hover:scale-110" 
-              />
+            <div class="relative overflow-hidden mr-5"> {/* Increased margin for spacing */}
+              <AILogoChip size="70" class="transition-transform duration-300 group-hover:scale-110" /> {/* Increased size from 60 to 70 */}
               <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 rounded-full transform scale-0 group-hover:scale-100 transition-all duration-300"></div>
             </div>
-            <span class={`text-2xl font-display font-bold bg-gradient-to-r from-blue-600 to-primary bg-clip-text text-transparent transform transition-all duration-300 group-hover:translate-x-1`}>
-              BaiP
-            </span>
+            <div class="flex flex-col">
+              <span class={`text-base md:text-lg lg:text-2xl font-display font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent transform transition-all duration-300 group-hover:translate-x-1`}>
+                Boston AI Partners
+              </span>
+              <span class="text-xs md:text-sm text-gray-500 group-hover:text-primary transition-colors duration-300">
+                Responsible AI Solutions
+              </span>
+            </div>
           </a>
 
           <nav class="hidden md:flex space-x-8 items-center">
