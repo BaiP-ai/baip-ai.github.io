@@ -5,7 +5,7 @@ import AnimatedAIResponse from '../components/AnimatedAIResponse';
 import ServicesTimeline from '../components/ServicesTimeline';
 import ApproachSection from '../components/ApproachSection';
 import WhyBaiP from '../components/WhyBaiP';
-import ClientTestimonials from '../components/ClientTestimonials';
+import FAQSection from '../components/FAQSection'; // Changed from TeamSection
 import ContactModalTrigger from '../components/ContactModalTrigger';
 ---
 
@@ -120,11 +120,17 @@ import ContactModalTrigger from '../components/ContactModalTrigger';
     </div>
   </section>
   
-  <!-- Testimonials Section -->
-  <section id="testimonials" class="py-20 md:py-32 relative">
-    <div class="container mx-auto px-4">
-      <ClientTestimonials client:visible />
+  <!-- FAQ Section - Replaced TeamSection -->
+  <section id="faq" class="py-20 md:py-32 relative bg-white">
+    <!-- Top border gradient -->
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <FAQSection client:visible />
     </div>
+    
+    <!-- Bottom border gradient -->
+    <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent"></div>
   </section>
   
   <!-- Contact Trigger Section -->
