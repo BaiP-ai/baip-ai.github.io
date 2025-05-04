@@ -1,5 +1,4 @@
 import { createSignal, onMount } from 'solid-js';
-import { Motion } from '@motionone/solid';
 
 // Function to dispatch a custom event to open the modal
 const openContactModal = () => {
@@ -9,26 +8,55 @@ const openContactModal = () => {
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = createSignal(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = createSignal(false);
-
+  
   onMount(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      // Check if we're at the top
+      const isAtTop = window.scrollY < 20;
+      
+      if (isAtTop) {
+        // At the top: not scrolled styling
+        setIsScrolled(false);
+      } else {
+        // Scrolled down: scrolled styling
+        setIsScrolled(true);
+      }
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    // Use requestAnimationFrame for better performance
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    // Initial check for page load with scroll already happened
+    handleScroll();
+    
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   });
 
+  const toggleMobileMenu = (isOpen) => {
+    setIsMobileMenuOpen(isOpen);
+  };
+
   return (
-    <Motion.header
-      class={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled() ? 'py-2 bg-light/90 backdrop-blur-md shadow-sm border-b border-gray-200/50' : 'py-4 bg-light shadow-sm'}`}
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
+    <header
+      class={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled() ? 'py-2 bg-light/90 backdrop-blur-md shadow-sm border-b border-gray-200/50' : 'py-4 bg-light shadow-sm'
+      }`}
     >
       <div class="container mx-auto px-4">
         <div class="flex items-center justify-between">
           <a href="/" class="flex items-center">
+            <img src="/images/ai-logo.svg" alt="BaiP AI Logo" class="h-10 mr-3" />
             <span class={`text-2xl font-display font-bold bg-gradient-to-r from-blue-600 to-primary bg-clip-text text-transparent`}>BaiP</span>
           </a>
 
@@ -40,7 +68,7 @@ const Navbar = () => {
           </nav>
 
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen())}
+            onClick={() => toggleMobileMenu(!isMobileMenuOpen())}
             class={`md:hidden p-2 transition-colors text-gray-700`}
             aria-label="Toggle menu"
           >
@@ -49,28 +77,25 @@ const Navbar = () => {
         </div>
       </div>
 
-      <Motion.div
+      <div
         class={`md:hidden absolute top-full left-0 right-0 transition-all duration-300 ease-in-out overflow-hidden bg-light shadow-lg border-t border-gray-200/50`}
-        initial={{ height: 0, opacity: 0 }}
-        animate={{ height: isMobileMenuOpen() ? 'auto' : 0, opacity: isMobileMenuOpen() ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
       >
         <nav class="flex flex-col px-4 py-2 space-y-2">
-          <a href="#about" onClick={() => setIsMobileMenuOpen(false)} class={`block py-2 font-medium transition-colors text-gray-700 hover:text-primary`}>About</a>
-          <a href="#services" onClick={() => setIsMobileMenuOpen(false)} class={`block py-2 font-medium transition-colors text-gray-700 hover:text-primary`}>Services</a>
-          <a href="#approach" onClick={() => setIsMobileMenuOpen(false)} class={`block py-2 font-medium transition-colors text-gray-700 hover:text-primary`}>Approach</a>
+          <a href="#about" onClick={() => toggleMobileMenu(false)} class={`block py-2 font-medium transition-colors text-gray-700 hover:text-primary`}>About</a>
+          <a href="#services" onClick={() => toggleMobileMenu(false)} class={`block py-2 font-medium transition-colors text-gray-700 hover:text-primary`}>Services</a>
+          <a href="#approach" onClick={() => toggleMobileMenu(false)} class={`block py-2 font-medium transition-colors text-gray-700 hover:text-primary`}>Approach</a>
           <button 
             onClick={() => {
               openContactModal();
-              setIsMobileMenuOpen(false); // Close menu after clicking
+              toggleMobileMenu(false); // Close menu after clicking
             }} 
             class={`block py-2 cta-button w-full text-center`}
           >
             Contact Us
           </button>
         </nav>
-      </Motion.div>
-    </Motion.header>
+      </div>
+    </header>
   );
 };
 
