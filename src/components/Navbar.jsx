@@ -81,8 +81,9 @@ const Navbar = () => {
       <div class="container mx-auto px-4">
         <div class="flex items-center justify-between">
           <a href="/" class="flex items-center group">
-            <div class="relative overflow-hidden mr-5"> {/* Increased margin for spacing */}
-              <AILogoChip size="70" class="transition-transform duration-300 group-hover:scale-110" /> {/* Increased size from 60 to 70 */}
+            {/* Further reduced margin between logo and text */}
+            <div class="relative overflow-hidden mr-1">
+              <AILogoChip size="70" class="transition-transform duration-300 group-hover:scale-110" />
               <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 rounded-full transform scale-0 group-hover:scale-100 transition-all duration-300"></div>
             </div>
             <div class="flex flex-col">

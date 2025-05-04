@@ -15,12 +15,17 @@ const Footer = () => {
         <div class="grid md:grid-cols-3 gap-8 mb-12">
           <div>
             <div class="flex items-center mb-4">
-              <AILogoChip size="70" class="mr-4" />
+              {/* Further reduced margin between logo and text to match Navbar */}
+              <div class="relative overflow-hidden mr-1">
+                <AILogoChip size="70" class="transition-transform duration-300 hover:scale-110" />
+              </div>
               <div class="flex flex-col">
-                <div class="text-xl lg:text-2xl font-display font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <span class="text-base md:text-lg lg:text-2xl font-display font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                   Boston AI Partners
-                </div>
-                <span class="text-sm text-gray-500">Responsible AI Solutions</span>
+                </span>
+                <span class="text-xs md:text-sm text-gray-500">
+                  Responsible AI Solutions
+                </span>
               </div>
             </div>
             <p class="text-dark/80 max-w-xs">
