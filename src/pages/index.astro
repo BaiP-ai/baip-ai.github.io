@@ -7,6 +7,7 @@ import ApproachSection from '../components/ApproachSection';
 import WhyBaiP from '../components/WhyBaiP';
 import FAQSection from '../components/FAQSection'; // Changed from TeamSection
 import ContactModalTrigger from '../components/ContactModalTrigger';
+import AILogoChip from '../components/AILogoChip';
 ---
 
 <Layout title="Boston AI Partners - Responsible AI Solutions">
@@ -48,30 +49,143 @@ import ContactModalTrigger from '../components/ContactModalTrigger';
     </div>
   </section>
   
-  <!-- About Section -->
-  <section id="about" class="py-20 md:py-32 relative">
-    <div class="container mx-auto px-4">
-      <div class="glass-panel p-8 md:p-12 max-w-6xl mx-auto">
-        <h2 class="section-heading">About Boston AI Partners</h2>
-        <div class="grid md:grid-cols-2 gap-12">
-          <div>
-            <p class="text-xl mb-6">
-              We believe AI should be transparent, ethical, and powerful—fueling innovation across industries while respecting people and data.
-            </p>
-            <p class="mb-6">
-              At BaiP, we're focused on building practical AI solutions that solve real-world problems, starting with our flagship product for global education and expanding to enterprise AI services.
-            </p>
-            <p>
-              Our team combines deep technical expertise with business acumen to deliver AI systems that drive measurable value while adhering to the highest standards of responsible development.
-            </p>
+  <!-- About Section - Redesigned with improved UI -->
+  <section id="about" class="py-20 md:py-32 relative overflow-hidden">
+    <!-- Background subtle gradient -->
+    <div class="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-white"></div>
+    
+    <!-- Decorative elements -->
+    <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 blur-[100px] rounded-full"></div>
+    <div class="absolute bottom-0 left-0 w-1/4 h-1/4 bg-secondary/5 blur-[80px] rounded-full"></div>
+    
+    <!-- Decorative circuit lines -->
+    <div class="absolute top-20 left-10 w-[300px] h-[300px] opacity-10">
+      <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="150" r="120" stroke="currentColor" stroke-width="1" stroke-dasharray="8 8" class="text-primary" />
+        <circle cx="150" cy="150" r="80" stroke="currentColor" stroke-width="1" class="text-secondary" />
+      </svg>
+    </div>
+    <div class="absolute bottom-20 right-10 w-[200px] h-[200px] opacity-10">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="40" y="40" width="120" height="120" stroke="currentColor" stroke-width="1" class="text-primary" />
+        <circle cx="100" cy="100" r="60" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" class="text-secondary" />
+      </svg>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <!-- Heading with gradient line -->
+      <div class="flex flex-col items-center text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-display font-bold text-dark mb-4">
+          About <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Boston AI Partners</span>
+        </h2>
+        <div class="h-1 w-20 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
+      </div>
+      
+      <!-- Content with cards -->
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Mission Card -->
+        <div class="glass-panel p-8 rounded-2xl border border-primary/10 shadow-lg transform transition-all duration-300 hover:-translate-y-1 hover:shadow-primary/20">
+          <div class="mb-6">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-r from-primary/10 to-primary/20 flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+              </svg>
+            </div>
+            <h3 class="text-2xl font-display font-bold text-dark mb-2">Our Mission</h3>
           </div>
-          <div class="relative flex items-center justify-center">
-            <div class="w-64 h-64 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center animate-float">
-              <div class="w-48 h-48 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center">
-                <div class="w-32 h-32 rounded-xl bg-gradient-to-br from-primary to-secondary shadow-lg flex items-center justify-center">
-                  <span class="text-2xl text-white font-display font-bold">Boston AI</span>
+          <p class="text-gray-700">
+            We believe AI should be transparent, ethical, and powerful—fueling innovation across industries while respecting people and data.
+          </p>
+        </div>
+        
+        <!-- Approach Card -->
+        <div class="glass-panel p-8 rounded-2xl border border-secondary/10 shadow-lg transform transition-all duration-300 hover:-translate-y-1 hover:shadow-secondary/20">
+          <div class="mb-6">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-r from-secondary/10 to-secondary/20 flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+            </div>
+            <h3 class="text-2xl font-display font-bold text-dark mb-2">Our Approach</h3>
+          </div>
+          <p class="text-gray-700">
+            At BaiP, we're focused on building practical AI solutions that solve real-world problems, starting with our flagship product for global education and expanding to enterprise AI services.
+          </p>
+        </div>
+        
+        <!-- Team Card -->
+        <div class="glass-panel p-8 rounded-2xl border border-blue-400/10 shadow-lg transform transition-all duration-300 hover:-translate-y-1 hover:shadow-blue-400/20">
+          <div class="mb-6">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-400/10 to-blue-400/20 flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+            <h3 class="text-2xl font-display font-bold text-dark mb-2">Our Team</h3>
+          </div>
+          <p class="text-gray-700">
+            Our team combines deep technical expertise with business acumen to deliver AI systems that drive measurable value while adhering to the highest standards of responsible development.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Feature showcase -->
+      <div class="mt-16 glass-panel-dark p-8 md:p-10 rounded-2xl border border-white/10">
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h3 class="text-3xl font-display font-bold text-white mb-6">The Boston AI Advantage</h3>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <div class="p-1 bg-gradient-to-r from-primary to-secondary rounded-full mr-3 mt-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-lg font-bold text-white mb-1">Ethical AI Development</h4>
+                  <p class="text-light/80">Committed to responsible AI that respects privacy, reduces bias, and operates transparently.</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <div class="p-1 bg-gradient-to-r from-primary to-secondary rounded-full mr-3 mt-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-lg font-bold text-white mb-1">Enterprise-Ready Solutions</h4>
+                  <p class="text-light/80">Scalable architecture designed for integration with your existing systems and workflows.</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <div class="p-1 bg-gradient-to-r from-primary to-secondary rounded-full mr-3 mt-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-lg font-bold text-white mb-1">Innovation-Focused</h4>
+                  <p class="text-light/80">Continuously developing cutting-edge AI capabilities that push technological boundaries.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- AI logo animation -->
+          <div class="flex justify-center items-center">
+            <div class="relative">
+              <div class="animate-float">
+                <div class="w-64 h-64 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center">
+                  <div class="w-48 h-48 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center">
+                    <div class="w-36 h-36 rounded-xl bg-gradient-to-br from-primary to-secondary shadow-xl flex items-center justify-center">
+                      <AILogoChip client:load size="90" />
+                    </div>
+                  </div>
                 </div>
               </div>
+              <!-- Decorative element -->
+              <div class="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-blue-400/10 backdrop-blur-md border border-white/10"></div>
+              <div class="absolute -top-4 -left-4 w-16 h-16 rounded-full bg-secondary/10 backdrop-blur-md border border-white/10"></div>
             </div>
           </div>
         </div>
