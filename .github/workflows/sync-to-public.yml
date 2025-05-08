@@ -61,10 +61,10 @@ jobs:
           # Push to new branch
           git push public $BRANCH_NAME
           
-          # Create Pull Request using GitHub CLI
-          gh pr create \
-            --repo baip-ai/baip-ai.github.io \
-            --base main \
-            --head $BRANCH_NAME \
-            --title "Sync from private repository" \
-            --body "Automated sync from private repository"
+          # # Create Pull Request using GitHub CLI
+          # gh pr create \
+          #   --repo baip-ai/baip-ai.github.io \
+          #   --base main \
+          #   --head $BRANCH_NAME \
+          #   --title "Sync from private repository" \
+          #   --body "Automated sync from private repository"
