@@ -2,6 +2,10 @@
 
 A modern, responsive SPA website for Boston AI Partners using Astro and SolidJS with 3D visualizations via Three.js and Supabase integration for the contact form with email notifications.
 
+## Deployment
+
+The website is automatically deployed to GitHub Pages when changes are pushed to the main branch of this repository. The GitHub Actions workflow handles building the site and deploying it directly to the `gh-pages` branch of the public repository.
+
 ## Features
 
 - 🚀 Responsive single page application built with Astro and SolidJS
