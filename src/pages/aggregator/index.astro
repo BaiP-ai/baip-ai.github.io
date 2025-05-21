@@ -1,0 +1,53 @@
+---
+// This page serves as a redirect entry point to the AI Aggregator project
+// that is hosted in a separate directory
+---
+
+<script is:inline>
+  // Redirect to the AI Aggregator project
+  window.location.href = '/aggregator';
+</script>
+
+<meta http-equiv="refresh" content="0;url=/aggregator">
+
+<div class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Redirecting to BAIP.ai AI Aggregator...</p>
+</div>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f8fafc;
+  }
+  
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #2563EB;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    color: #64748b;
+    font-size: 1rem;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
