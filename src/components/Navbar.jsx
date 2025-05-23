@@ -10,9 +10,13 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = createSignal(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = createSignal(false);
   const [activeSection, setActiveSection] = createSignal("hero");
+  const [currentPath, setCurrentPath] = createSignal("");
   
   onMount(() => {
     let ticking = false;
+    
+    // Set current path on mount
+    setCurrentPath(window.location.pathname);
     
     const handleScroll = () => {
       // Check if we're at the top
@@ -128,6 +132,16 @@ const Navbar = () => {
               }`}></span>
             </a>
             
+            <a 
+              href="/aggregator" 
+              class={`relative font-medium transition-colors text-gray-700 hover:text-primary py-1 px-1 overflow-hidden group`}
+            >
+              AI Aggregator
+              <span class={`absolute bottom-0 left-0 w-full h-0.5 bg-primary transform transition-transform duration-300 ${
+                currentPath() === '/aggregator' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+              }`}></span>
+            </a>
+            
             <button 
               onClick={openContactModal} 
               class={`cta-button relative overflow-hidden group`}
@@ -186,6 +200,15 @@ const Navbar = () => {
             }`}
           >
             Approach
+          </a>
+          <a 
+            href="/aggregator" 
+            onClick={() => toggleMobileMenu(false)} 
+            class={`block py-2 font-medium transition-colors hover:text-primary ${
+              currentPath() === '/aggregator' ? 'text-primary pl-2 border-l-2 border-primary bg-blue-50/50' : 'text-gray-700'
+            }`}
+          >
+            AI Aggregator
           </a>
           <button 
             onClick={() => {
