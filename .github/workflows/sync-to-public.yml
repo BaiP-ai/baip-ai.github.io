@@ -44,9 +44,9 @@ jobs:
           # Generate branch name with timestamp
           BRANCH_NAME="sync-$(date +%Y%m%d%H%M%S)"
           
-          # Remove sync-to-public.yml and copy build.yml
+          # Remove sync-to-public.yml and copy fetch-aggregator-data.yml
           rm -f .github/workflows/sync-to-public.yml
-          cp deploy/workflows/build.yml .github/workflows/
+          cp deploy/workflows/fetch-aggregator-data.yml .github/workflows/
           
           # Add public repo as remote
           git remote add public git@github.com:baip-ai/baip-ai.github.io.git

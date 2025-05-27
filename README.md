@@ -1,29 +1,70 @@
-# Boston AI Partners Website
+# BAIP.AI - Boston AI Partners
 
-A modern, responsive SPA website for Boston AI Partners using Astro and SolidJS with 3D visualizations via Three.js and Supabase integration for the contact form with email notifications.
+A comprehensive AI platform featuring a modern corporate website and an enterprise AI aggregator, built for Fortune 500 companies to discover and leverage enterprise-ready AI tools and custom AI agents.
 
-## Features
+## 🚀 Overview
 
+This repository contains the unified BAIP.AI platform with two main components:
+
+### 🏢 Main Website (`/`)
+A modern, responsive corporate website for Boston AI Partners featuring:
+- Professional design focused on AI solutions and services
+- 3D visualizations using Three.js (AI network, globe, etc.)
+- Modern UI with transparent glass effects and animations
+- Contact form with Supabase backend and email notifications
+- Optimized for performance and SEO
+
+### 🤖 AI Aggregator (`/aggregator`)
+A comprehensive AI aggregator platform designed for Fortune 500 companies:
+- Curated collection of enterprise-ready AI tools
+- Business-focused categorization by departments and functions
+- Custom AI agents powered by OpenAI
+- Detailed information about each tool and agent
+- Enterprise security focus with vetted tools
+
+## ✨ Features
+
+### Main Website Features
 - 🚀 Responsive single page application built with Astro and SolidJS
-- 🌐 3D visualizations using Three.js (AI network, globe, etc.)
-- 🖥️ Modern UI with transparent glass effects and animations using Framer Motion
-- 📝 Contact form with Supabase backend and email notification functionality
+- 🌐 3D visualizations using Three.js
+- 🖥️ Modern UI with glass effects and Framer Motion animations
+- 📝 Contact form with Supabase backend and email notifications
 - ⚡ Optimized for performance and SEO
-- 🧠 Professional design focused on AI solutions and services
 
-## Setup
+### AI Aggregator Features
+- 📊 **Comprehensive Tool Directory**: Curated list of enterprise AI tools organized by business function
+- 🤖 **Custom AI Agents**: Specialized AI assistants built for enterprise use cases
+- 🏢 **Business-Focused Categories**: Tools organized by departments (HR, Finance, IT, etc.)
+- 📱 **Responsive Design**: Works on all devices and screen sizes
+- 🔒 **Enterprise Security Focus**: All tools vetted for enterprise security and compliance
+- 🔄 **Automated Data Processing**: Scripts for fetching and processing AI tool data
 
-### Prerequisites
-- Node.js 16+ and npm
+## 🛠️ Technology Stack
+
+- **[Astro](https://astro.build/)**: Fast and flexible static site generator
+- **[SolidJS](https://www.solidjs.com/)**: Reactive JavaScript library for UI components
+- **[Tailwind CSS](https://tailwindcss.com/)**: Utility-first CSS framework
+- **[Three.js](https://threejs.org/)**: 3D graphics library for web
+- **[Supabase](https://supabase.com/)**: Backend as a Service for contact forms
+- **[OpenAI](https://openai.com/)**: AI models for custom agents
+- **[Framer Motion](https://www.framer.com/motion/)**: Animation library
+
+## 📋 Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+## 🚀 Getting Started
 
 ### Installation
-1. Clone the repository:
+
+1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/baip-fe-ui.git
-   cd baip-fe-ui
+   git clone https://github.com/BaiP-AI-Private/website.git
+   cd website
    ```
 
-2. Install dependencies:
+2. **Install dependencies:**
    ```bash
    npm install
    ```
@@ -33,49 +74,193 @@ A modern, responsive SPA website for Boston AI Partners using Astro and SolidJS 
    npm install --legacy-peer-deps
    ```
 
-3. Configure environment variables:
-   - Copy `.env.example` to `.env`
-   - Update with your Supabase credentials
-
-4. For email notifications, deploy the Supabase Edge Function:
+3. **Configure environment variables:**
    ```bash
-   npx supabase functions deploy send-contact-notification
+   cp .env.example .env
+   ```
+   
+   Update `.env` with your credentials:
+   ```env
+   # Supabase (for contact forms)
+   SUPABASE_URL=your_supabase_url
+   SUPABASE_ANON_KEY=your_supabase_anon_key
+   
+   # OpenAI (for AI agents)
+   OPENAI_API_KEY=your_openai_api_key
    ```
 
-5. Start the development server:
-   ```bash
-   npm run dev
-   ```
+### Development
 
-6. Build for production:
-   ```bash
-   npm run build
-   ```
+```bash
+# Start development server
+npm run dev
 
-## Project Structure
+# The main website will be available at http://localhost:4321
+# The AI aggregator will be available at http://localhost:4321/aggregator
+```
 
-- `src/`
-  - `components/` - SolidJS UI components
-  - `layouts/` - Page layout templates
-  - `pages/` - Astro pages
-  - `styles/` - Global CSS styles
-  - `lib/` - Utility functions and Supabase client
-- `public/` - Static assets
-- `supabase/functions/` - Supabase Edge Functions for backend logic
+### Production Build
 
-## Supabase Setup
+```bash
+# Build for production
+npm run build
 
-1. Create a new Supabase project
-2. Create a `contacts` table with the following schema:
-   - `id`: uuid (primary key)
-   - `name`: text
-   - `email`: text
-   - `company`: text
-   - `message`: text
-   - `created_at`: timestamp with time zone
-3. Deploy the Edge Function for email notifications
-4. Set the required environment variables in the Supabase dashboard
+# Preview production build
+npm run preview
+```
 
-## License
+## 📁 Project Structure
 
-MIT
+```
+/
+├── public/                 # Static assets
+│   ├── images/            # Images and logos
+│   ├── js/                # Client-side JavaScript
+│   └── favicon.svg        # Site favicon
+├── src/                   # Source code
+│   ├── components/        # UI components (shared + aggregator-specific)
+│   │   ├── AgentCard.jsx
+│   │   ├── CategoryCard.jsx
+│   │   ├── Hero3D.jsx
+│   │   ├── AggregatorHero.jsx
+│   │   └── ...
+│   ├── layouts/           # Page layouts
+│   │   ├── Layout.astro           # Main website layout
+│   │   └── AggregatorLayout.astro # Aggregator layout
+│   ├── pages/             # Page components
+│   │   ├── index.astro            # Main website home
+│   │   └── aggregator/            # AI aggregator pages
+│   │       ├── index.astro        # Aggregator home
+│   │       ├── agents/            # AI agents section
+│   │       ├── categories/        # Tool categories
+│   │       ├── tools.astro        # Tools listing
+│   │       └── api/               # API endpoints
+│   ├── data/              # Data files for aggregator
+│   │   ├── agents.js              # AI agents data
+│   │   ├── categories.js          # Tool categories
+│   │   ├── tools.js               # AI tools data
+│   │   └── processed/             # Processed data files
+│   ├── agents/            # Custom AI agent implementations
+│   ├── utils/             # Utility functions
+│   ├── lib/               # Supabase client and utilities
+│   └── styles/            # CSS styles
+├── scripts/               # Data processing scripts
+│   ├── fetch-data.js              # Fetch AI tools data
+│   ├── process-data.js            # Process and categorize data
+│   ├── download-logos.js          # Download tool logos
+│   └── utils/                     # Script utilities
+├── supabase/              # Supabase configuration
+│   └── functions/         # Edge functions for email notifications
+├── .github/workflows/     # GitHub Actions
+│   ├── sync-to-public.yml         # Sync to public repository
+│   └── fetch-aggregator-data.yml  # Automated data fetching
+└── package.json           # Project manifest
+```
+
+## 🔧 Available Scripts
+
+### Main Scripts
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+
+### Aggregator Data Management
+- `npm run fetch-data` - Fetch latest AI tools data
+- `npm run process-data` - Process and categorize fetched data
+- `npm run validate-data` - Validate data integrity
+- `npm run download-logos` - Download tool logos
+- `npm run download-logos:force` - Force re-download all logos
+- `npm run sync-logos` - Sync logo files
+- `npm run audit-logos` - Audit logo availability
+
+## 🗄️ Database Setup (Supabase)
+
+### Contact Form Table
+Create a `contacts` table with the following schema:
+```sql
+CREATE TABLE contacts (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  company TEXT,
+  message TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+```
+
+### Edge Function Deployment
+Deploy the contact notification function:
+```bash
+npx supabase functions deploy send-contact-notification
+```
+
+## 🤖 AI Agents
+
+The platform includes custom AI agents for enterprise use cases:
+
+- **Executive Assistant**: Helps with scheduling, email management, and administrative tasks
+- **Research Analyst**: Conducts market research and data analysis
+- **Data Analyst**: Processes and interprets business data
+- **Product Manager**: Assists with product strategy and roadmap planning
+- **Marketing Strategist**: Develops marketing campaigns and strategies
+
+To add new agents, create implementations in the `src/agents/` directory.
+
+## 🔄 Automated Data Processing
+
+The platform includes automated workflows for keeping AI tool data up-to-date:
+
+- **Daily Data Fetching**: Automatically fetches new AI tools and updates
+- **Data Processing**: Categorizes and enriches tool information
+- **Logo Management**: Downloads and optimizes tool logos
+- **Data Validation**: Ensures data integrity and completeness
+
+## 🚀 Deployment
+
+The site supports deployment to various platforms:
+
+- **GitHub Pages**: Automated deployment via GitHub Actions
+- **Vercel**: Connect your repository for automatic deployments
+- **Netlify**: Deploy with build command `npm run build`
+
+### Environment Variables for Production
+
+Set the following environment variables in your deployment platform:
+
+```env
+SUPABASE_URL=your_production_supabase_url
+SUPABASE_ANON_KEY=your_production_supabase_anon_key
+OPENAI_API_KEY=your_openai_api_key
+```
+
+## 🛡️ Security Considerations
+
+- All AI tools are vetted for enterprise security and compliance
+- API keys and sensitive data are handled securely
+- Supabase provides built-in security features
+- Input validation on all forms and API endpoints
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/new-feature`
+3. Commit your changes: `git commit -m 'Add new feature'`
+4. Push to the branch: `git push origin feature/new-feature`
+5. Submit a pull request
+
+## 📄 License
+
+MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📞 Contact
+
+For questions or support:
+- Email: [contact@baip.ai](mailto:contact@baip.ai)
+- Website: [https://baip.ai](https://baip.ai)
+- AI Aggregator: [https://baip.ai/aggregator](https://baip.ai/aggregator)
+
+## 🙏 Acknowledgments
+
+- Built with [Astro](https://astro.build/) and [SolidJS](https://www.solidjs.com/)
+- Powered by [Supabase](https://supabase.com/) and [OpenAI](https://openai.com/)
+- Designed for Fortune 500 enterprise needs
