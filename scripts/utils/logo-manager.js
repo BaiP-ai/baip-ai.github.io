@@ -20,7 +20,7 @@ function normalizeLogoPath(logoPath) {
   if (!logoPath) return '/images/logos/placeholder.svg';
   
   // Remove any existing aggregator prefixes that might have been added incorrectly
-  let cleanPath = logoPath.replace(/^\/aggregator\/aggregator\//, '/aggregator/').replace(/^\/aggregator\//, '').replace(/^\//, '');
+  let cleanPath = logoPath.replace(/^\/aggregator\//, '/').replace(/^\//, '');
   
   // Ensure it starts with images/logos/
   if (!cleanPath.startsWith('images/logos/')) {
