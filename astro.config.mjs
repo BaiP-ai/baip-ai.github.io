@@ -7,9 +7,17 @@ export default defineConfig({
     solidJs(),
     tailwind()
   ],
+  site: 'https://www.baip.ai',
+  cacheDir: './cache', // Use custom cache directory for GitHub Actions caching
+  build: {
+    assets: '_astro'
+  },
   vite: {
     ssr: {
       noExternal: ['three']
+    },
+    build: {
+      assetsInlineLimit: 0 // Ensure assets are always externalized for proper path handling
     }
   }
 });

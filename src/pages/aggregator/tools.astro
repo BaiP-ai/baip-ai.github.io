@@ -1,0 +1,136 @@
+---
+import AggregatorLayout from '../../layouts/AggregatorLayout.astro';
+import AggregatorHero from '../../components/AggregatorHero.jsx';
+import ToolCard from '../../components/ToolCard.jsx';
+import { tools } from '../../data/tools.js';
+import { categories } from '../../data/categories.js';
+import { getSitePath } from '../../utils/paths.js';
+
+// Group tools by category and subcategory
+let toolsByCategory = {};
+
+// Try to load processed data if available
+try {
+  const { toolsByCategory: processedTools } = await import('../../data/processed/toolsByCategory.js');
+  toolsByCategory = processedTools;
+} catch (e) {
+  // Fall back to simple grouping if processed data isn't available
+  console.warn('Processed data not available, falling back to simple grouping');
+  
+  // Create category map for better organization
+  const categoryMap = {};
+  categories.forEach(category => {
+    categoryMap[category.id] = category;
+    toolsByCategory[category.id] = [];
+  });
+  
+  // Group tools by their categories
+  tools.forEach(tool => {
+    if (tool.category && toolsByCategory[tool.category]) {
+      toolsByCategory[tool.category].push(tool);
+    }
+  });
+}
+
+// Sort tools within each category by name
+Object.keys(toolsByCategory).forEach(categoryId => {
+  // Only sort if the value is an array (skip subcategory groupings)
+  if (Array.isArray(toolsByCategory[categoryId])) {
+    toolsByCategory[categoryId].sort((a, b) => a.name.localeCompare(b.name));
+  }
+});
+
+// Create a map of category info for display
+const categoryInfo = {};
+categories.forEach(category => {
+  categoryInfo[category.id] = category;
+});
+---
+
+<AggregatorLayout title="AI Tools for Enterprise">
+  <AggregatorHero 
+    title="AI Tools" 
+    subtitle="Comprehensive collection of enterprise-ready AI tools for Fortune 500 companies"
+    showSearch={true}
+  />
+  
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-6">Enterprise AI Tools</h2>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+          <p class="text-gray-700 dark:text-gray-300 mb-4">
+            Our curated collection of AI tools is specifically selected for Fortune 500 companies. Each tool has been evaluated for enterprise readiness, security compliance, and scalability.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-md text-center">
+              <div class="text-2xl font-bold text-primary">{tools.length}+</div>
+              <div class="text-sm text-gray-600 dark:text-gray-400">AI Tools</div>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-md text-center">
+              <div class="text-2xl font-bold text-primary">{categories.length}</div>
+              <div class="text-sm text-gray-600 dark:text-gray-400">Categories</div>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-md text-center">
+              <div class="text-2xl font-bold text-primary">Enterprise</div>
+              <div class="text-sm text-gray-600 dark:text-gray-400">Grade</div>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-md text-center">
+              <div class="text-2xl font-bold text-primary">Curated</div>
+              <div class="text-sm text-gray-600 dark:text-gray-400">Selection</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {Object.entries(toolsByCategory).filter(([categoryId, categoryTools]) => Array.isArray(categoryTools) && categoryTools.length > 0).map(([categoryId, categoryTools]) => (
+        <div class="mb-12">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold flex items-center">
+              <span class="w-1.5 h-8 bg-blue-600 mr-3 rounded-full"></span>
+              {categoryInfo[categoryId]?.name || categoryId.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+              <span class="ml-3 text-sm font-normal text-gray-500 dark:text-gray-400">
+                ({categoryTools.length} tools)
+              </span>
+            </h2>
+            <a href={getSitePath(`/categories/${categoryId}`)} class="text-primary hover:text-blue-700 text-sm flex items-center">
+              View Category
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+          
+          {categoryInfo[categoryId]?.description && (
+            <p class="text-gray-600 dark:text-gray-400 mb-6">
+              {categoryInfo[categoryId].description}
+            </p>
+          )}
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {categoryTools.map((tool) => (
+              <ToolCard tool={tool} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+  
+  <section class="py-12 bg-blue-600">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-6 text-white">Ready to Transform Your Business with AI?</h2>
+      <p class="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
+        Join Fortune 500 companies that are using our AI tools to drive innovation, efficiency, and growth across their organizations.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href={getSitePath('/enterprise')} class="btn py-3 px-6 bg-white text-blue-600 hover:bg-blue-50 font-semibold rounded-lg text-lg">
+          Enterprise Access
+        </a>
+        <a href={getSitePath('/categories')} class="btn py-3 px-6 border-2 border-white text-white hover:bg-white hover:text-blue-600 font-semibold rounded-lg text-lg">
+          Browse by Category
+        </a>
+      </div>
+    </div>
+  </section>
+</AggregatorLayout>
