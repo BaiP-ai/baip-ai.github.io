@@ -18,13 +18,12 @@ const logoDir = path.join(__dirname, '..', '..', 'public', 'images', 'logos');
  */
 function normalizeLogoPath(logoPath) {
   if (!logoPath) return '/images/logos/placeholder.svg';
-  
-  // Remove any existing aggregator prefixes that might have been added incorrectly
-  let cleanPath = logoPath.replace(/^\/aggregator\//, '/').replace(/^\//, '');
-  
+
+  // Remove all aggregator prefixes
+  let cleanPath = logoPath.replace(/^\/?aggregator\//, '');
+
   // Ensure it starts with images/logos/
   if (!cleanPath.startsWith('images/logos/')) {
-    // If it's just a filename, add the proper path
     if (!cleanPath.includes('/')) {
       cleanPath = `images/logos/${cleanPath}`;
     } else if (cleanPath.startsWith('logos/')) {
@@ -33,8 +32,7 @@ function normalizeLogoPath(logoPath) {
       cleanPath = `images/logos/${cleanPath}`;
     }
   }
-  
-  // Return clean path that will be processed by getAssetPath
+
   return `/${cleanPath}`;
 }
 
