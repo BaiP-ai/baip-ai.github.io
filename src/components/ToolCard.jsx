@@ -14,10 +14,10 @@ const ToolCard = (props) => {
                 src={getAssetPath(tool.logo)} 
                 alt={`${tool.name} logo`} 
                 class="w-10 h-10 object-contain" 
-                onError={(e) => { e.target.src = getAssetPath('/images/logos/placeholder.svg'); }}
+                onError={(e) => { e.target.src = getAssetPath('/images/placeholder.svg'); }}
               /> :
               <img 
-                src={getAssetPath('/images/logos/placeholder.svg')} 
+                src={getAssetPath('/images/placeholder.svg')} 
                 alt={`${tool.name} logo`} 
                 class="w-10 h-10 object-contain" 
               />

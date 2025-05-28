@@ -10,26 +10,26 @@ import https from 'https';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const logoDir = path.join(__dirname, '..', '..', 'public', 'images', 'logos');
+const logoDir = path.join(__dirname, '..', '..', 'public', 'aggregator', 'logos');
 
 /**
  * Normalize logo path to ensure consistency and handle base URL
  * Returns clean paths that work with the path utilities
  */
 function normalizeLogoPath(logoPath) {
-  if (!logoPath) return '/images/logos/placeholder.svg';
+  if (!logoPath) return '/images/placeholder.svg';
 
   // Remove all aggregator prefixes
   let cleanPath = logoPath.replace(/^\/?aggregator\//, '');
 
-  // Ensure it starts with images/logos/
-  if (!cleanPath.startsWith('images/logos/')) {
+  // Ensure it starts with aggregator/logos/
+  if (!cleanPath.startsWith('aggregator/logos/')) {
     if (!cleanPath.includes('/')) {
-      cleanPath = `images/logos/${cleanPath}`;
+      cleanPath = `aggregator/logos/${cleanPath}`;
     } else if (cleanPath.startsWith('logos/')) {
-      cleanPath = `images/${cleanPath}`;
-    } else if (!cleanPath.startsWith('images/')) {
-      cleanPath = `images/logos/${cleanPath}`;
+      cleanPath = `aggregator/${cleanPath}`;
+    } else if (!cleanPath.startsWith('aggregator/')) {
+      cleanPath = `aggregator/logos/${cleanPath}`;
     }
   }
 
@@ -309,7 +309,7 @@ async function processCompanyLogos(tools, agents) {
       }
       
       // Check if company already has a valid logo that exists
-      if (company.logo && company.logo !== 'images/logos/placeholder.svg') {
+      if (company.logo && company.logo !== 'images/placeholder.svg') {
         const existingLogoPath = path.join(logoDir, path.basename(company.logo));
         try {
           const stats = await fs.stat(existingLogoPath);
@@ -332,7 +332,7 @@ async function processCompanyLogos(tools, agents) {
       const logoFilename = await downloadCompanyLogo(company);
       
       // Update the company object with the correct logo path
-      company.logo = normalizeLogoPath(`images/logos/${logoFilename}`);
+      company.logo = normalizeLogoPath(`aggregator/logos/${logoFilename}`);
       processedLogos.push({
         company: company.name,
         logo: logoFilename,
@@ -345,7 +345,7 @@ async function processCompanyLogos(tools, agents) {
       
     } catch (error) {
       console.error(`Error processing logo for ${company.name}:`, error);
-      company.logo = normalizeLogoPath('images/logos/placeholder.svg');
+      company.logo = normalizeLogoPath('images/placeholder.svg');
       processedLogos.push({
         company: company.name,
         logo: 'placeholder.svg',

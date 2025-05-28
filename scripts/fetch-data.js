@@ -24,9 +24,9 @@ const dataPath = path.join(__dirname, '..', 'src', 'data');
 // URLs for data sources - these are placeholders until real APIs are implemented
 // Keep these as examples for future implementation
 const DATA_SOURCES = {
-  tools: 'https://api.example.com/ai-tools', // Replace with actual API endpoint when available
+  tools: 'https://api.example.com/ai-tools',        // Replace with actual API endpoint when available
   categories: 'https://api.example.com/categories', // Replace with actual API endpoint when available
-  agents: 'https://api.example.com/ai-agents', // Replace with actual API endpoint when available
+  agents: 'https://api.example.com/ai-agents',      // Replace with actual API endpoint when available
 };
 
 // Flag to indicate whether to use mock data or attempt API calls
