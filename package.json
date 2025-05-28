@@ -1,7 +1,7 @@
 {
-  "name": "baip-fe-ui",
+  "name": "baip-website",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "node": ">=18.0.0"
   },
