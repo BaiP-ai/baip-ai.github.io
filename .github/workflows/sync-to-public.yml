@@ -67,7 +67,7 @@ jobs:
           
           # Add and commit workflow changes
           git add .github/workflows/
-          git add public/images/logos/
+          git add public/aggregator/logos/
           git commit -m "Update workflow and data files" || echo "No changes to commit"
           
           # Push to new branch

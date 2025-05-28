@@ -38,7 +38,7 @@ export function getSitePath(path) {
  * @returns {string} - The asset path with proper base URL prefix
  */
 export function getAssetPath(path) {
-  if (!path) return getSitePath('/images/logos/placeholder.svg');
+  if (!path) return getSitePath('/images/placeholder.svg');
   
   // Remove any existing base URL prefix to avoid duplication
   let cleanPath = path;
