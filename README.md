@@ -113,21 +113,22 @@ npm run preview
 
 ```
 /
-├── public/                 # Static assets
-│   ├── images/            # Images and logos
-│   ├── js/                # Client-side JavaScript
-│   └── favicon.svg        # Site favicon
-├── src/                   # Source code
-│   ├── components/        # UI components (shared + aggregator-specific)
+├── public/                        # Static assets
+│   ├── aggregator/                # Aggregator images and logos
+|   ├── images                     # Images
+│   ├── js/                        # Client-side JavaScript
+│   └── favicon.svg                # Site favicon
+├── src/                           # Source code
+│   ├── components/                # UI components (shared + aggregator-specific)
 │   │   ├── AgentCard.jsx
 │   │   ├── CategoryCard.jsx
 │   │   ├── Hero3D.jsx
 │   │   ├── AggregatorHero.jsx
 │   │   └── ...
-│   ├── layouts/           # Page layouts
+│   ├── layouts/                   # Page layouts
 │   │   ├── Layout.astro           # Main website layout
 │   │   └── AggregatorLayout.astro # Aggregator layout
-│   ├── pages/             # Page components
+│   ├── pages/                     # Page components
 │   │   ├── index.astro            # Main website home
 │   │   └── aggregator/            # AI aggregator pages
 │   │       ├── index.astro        # Aggregator home
@@ -135,26 +136,26 @@ npm run preview
 │   │       ├── categories/        # Tool categories
 │   │       ├── tools.astro        # Tools listing
 │   │       └── api/               # API endpoints
-│   ├── data/              # Data files for aggregator
+│   ├── data/                      # Data files for aggregator
 │   │   ├── agents.js              # AI agents data
 │   │   ├── categories.js          # Tool categories
 │   │   ├── tools.js               # AI tools data
 │   │   └── processed/             # Processed data files
-│   ├── agents/            # Custom AI agent implementations
-│   ├── utils/             # Utility functions
-│   ├── lib/               # Supabase client and utilities
-│   └── styles/            # CSS styles
-├── scripts/               # Data processing scripts
+│   ├── agents/                    # Custom AI agent implementations
+│   ├── utils/                     # Utility functions
+│   ├── lib/                       # Supabase client and utilities
+│   └── styles/                    # CSS styles
+├── scripts/                       # Data processing scripts
 │   ├── fetch-data.js              # Fetch AI tools data
 │   ├── process-data.js            # Process and categorize data
 │   ├── download-logos.js          # Download tool logos
 │   └── utils/                     # Script utilities
-├── supabase/              # Supabase configuration
-│   └── functions/         # Edge functions for email notifications
-├── .github/workflows/     # GitHub Actions
+├── supabase/                      # Supabase configuration
+│   └── functions/                 # Edge functions for email notifications
+├── .github/workflows/             # GitHub Actions
 │   ├── sync-to-public.yml         # Sync to public repository
 │   └── fetch-aggregator-data.yml  # Automated data fetching
-└── package.json           # Project manifest
+└── package.json                   # Project manifest
 ```
 
 ## 🔧 Available Scripts
@@ -167,11 +168,6 @@ npm run preview
 ### Aggregator Data Management
 - `npm run fetch-data` - Fetch latest AI tools data
 - `npm run process-data` - Process and categorize fetched data
-- `npm run validate-data` - Validate data integrity
-- `npm run download-logos` - Download tool logos
-- `npm run download-logos:force` - Force re-download all logos
-- `npm run sync-logos` - Sync logo files
-- `npm run audit-logos` - Audit logo availability
 
 ## 🗄️ Database Setup (Supabase)
 
@@ -211,17 +207,15 @@ To add new agents, create implementations in the `src/agents/` directory.
 The platform includes automated workflows for keeping AI tool data up-to-date:
 
 - **Daily Data Fetching**: Automatically fetches new AI tools and updates
-- **Data Processing**: Categorizes and enriches tool information
-- **Logo Management**: Downloads and optimizes tool logos
-- **Data Validation**: Ensures data integrity and completeness
+- **Data Processing**:     Categorizes and enriches tool information
 
 ## 🚀 Deployment
 
 The site supports deployment to various platforms:
 
 - **GitHub Pages**: Automated deployment via GitHub Actions
-- **Vercel**: Connect your repository for automatic deployments
-- **Netlify**: Deploy with build command `npm run build`
+- **Vercel**:       Connect your repository for automatic deployments
+- **Netlify**:      Deploy with build command `npm run build`
 
 ### Environment Variables for Production
 

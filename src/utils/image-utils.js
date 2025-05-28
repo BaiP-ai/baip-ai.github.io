@@ -6,11 +6,11 @@
 /**
  * Get the correct image path for Astro deployment
  * Handles base URL configuration automatically
- * @param {string} imagePath - The image path (e.g., "/images/logos/company.png")
+ * @param {string} imagePath - The image path (e.g., "/aggregator/logos/company.png")
  * @returns {string} - The correct path for the current environment
  */
 export function getImagePath(imagePath) {
-  if (!imagePath) return `${import.meta.env.BASE_URL || ''}images/logos/placeholder.svg`;
+  if (!imagePath) return `${import.meta.env.BASE_URL || ''}images/placeholder.svg`;
   
   // Remove any existing base URL prefix to avoid duplication
   let cleanPath = imagePath;
@@ -34,7 +34,7 @@ export function getImagePath(imagePath) {
  */
 export function getLogoPath(company) {
   if (!company?.logo) {
-    return getImagePath('/images/logos/placeholder.svg');
+    return getImagePath('/images/placeholder.svg');
   }
   
   return getImagePath(company.logo);
