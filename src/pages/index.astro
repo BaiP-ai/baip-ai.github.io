@@ -8,9 +8,73 @@ import WhyBaiP from '../components/WhyBaiP';
 import FAQSection from '../components/FAQSection'; // Changed from TeamSection
 import ContactModalTrigger from '../components/ContactModalTrigger';
 import AILogoChip from '../components/AILogoChip';
+
+// SEO Configuration
+const seoTitle = "AI Solutions & Services | Boston AI Partners - Generative AI Development";
+const seoDescription = "Leading AI development company offering enterprise AI solutions, generative AI services, and machine learning implementation. Transform your business with responsible AI technology.";
+const canonicalUrl = "https://www.baip.ai";
+const ogImage = "/images/baip-ai-solutions-og.jpg";
+const keywords = "AI solutions, artificial intelligence services, generative AI development, machine learning implementation, enterprise AI consulting, AI strategy consulting, responsible AI development, custom AI models, AI transformation services, GenAI solutions, NLP services, computer vision solutions, AI automation, AI platform, AI roadmap development";
+
+// Structured Data for SEO
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Boston AI Partners",
+  "alternateName": "BAIP.AI",
+  "url": "https://www.baip.ai",
+  "logo": "https://www.baip.ai/images/baip-logo.png",
+  "description": "Boston AI Partners specializes in responsible AI development, offering enterprise-grade artificial intelligence solutions, generative AI services, and machine learning implementation.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Boston",
+    "addressRegion": "MA",
+    "addressCountry": "US"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "sales",
+    "email": "contact@baip.ai"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/baip-ai/",
+    "https://github.com/BaiP-ai",
+    "https://x.com/BAIP_AI",
+    "https://www.youtube.com/@BAIP-AI"
+  ],
+  "service": [
+    {
+      "@type": "Service",
+      "name": "Generative AI Development",
+      "description": "Custom generative AI solutions and large language model implementation for enterprises"
+    },
+    {
+      "@type": "Service", 
+      "name": "AI Strategy Consulting",
+      "description": "Strategic AI roadmap development and AI transformation consulting services"
+    },
+    {
+      "@type": "Service",
+      "name": "Machine Learning Solutions",
+      "description": "Custom machine learning model development and AI-powered automation services"
+    },
+    {
+      "@type": "Service",
+      "name": "Responsible AI Implementation",
+      "description": "Ethical AI development with governance frameworks and bias mitigation"
+    }
+  ]
+};
 ---
 
-<Layout title="Boston AI Partners - Responsible AI Solutions">
+<Layout 
+  title={seoTitle}
+  description={seoDescription}
+  canonicalUrl={canonicalUrl}
+  ogImage={ogImage}
+  keywords={keywords}
+  schemaData={schemaData}
+>
   <!-- Hero Section -->
   <section id="hero" class="min-h-screen flex items-center relative overflow-hidden py-32">
     <Hero3D client:load />
@@ -20,17 +84,27 @@ import AILogoChip from '../components/AILogoChip';
         <div>
           <h1 class="text-5xl md:text-7xl font-display font-bold mb-4">
             <span class="bg-gradient-to-r from-blue-400 to-primary bg-clip-text text-transparent">
-              Empowering the future with responsible AI
+              Enterprise AI Solutions & Generative AI Development
             </span>
           </h1>
           <p class="text-xl md:text-2xl text-light/80 mb-8">
-            At Boston AI Partners, we're building the next generation of AI products and services that turn complex challenges into opportunities.
+            Boston AI Partners delivers responsible AI solutions, custom machine learning models, and enterprise-grade generative AI services that transform complex business challenges into competitive advantages.
           </p>
           <div class="flex flex-wrap gap-4">
-            <a href="#services" class="cta-button">Explore Our Services</a>
-            <a href="#contact-trigger" class="px-6 py-3 rounded-full border border-light/20 hover:border-light/40 transition-all">
+            <a href="#services" class="cta-button" aria-label="Explore our AI services and solutions">Explore Our AI Services</a>
+            <a href="#contact-trigger" class="px-6 py-3 rounded-full border border-light/20 hover:border-light/40 transition-all" aria-label="Learn more about our AI solutions">
               Learn More
             </a>
+          </div>
+          
+          <!-- Trust indicators for SEO -->
+          <div class="mt-8 pt-8 border-t border-light/10">
+            <p class="text-sm text-light/60 mb-3">Trusted by enterprise clients for:</p>
+            <div class="flex flex-wrap gap-3 text-sm">
+              <span class="px-3 py-1 bg-primary/10 rounded-full text-primary">Generative AI Development</span>
+              <span class="px-3 py-1 bg-secondary/10 rounded-full text-secondary">AI Strategy Consulting</span>
+              <span class="px-3 py-1 bg-blue-400/10 rounded-full text-blue-400">Machine Learning Implementation</span>
+            </div>
           </div>
         </div>
         
@@ -76,9 +150,12 @@ import AILogoChip from '../components/AILogoChip';
       <!-- Heading with gradient line -->
       <div class="flex flex-col items-center text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-display font-bold text-dark mb-4">
-          About <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Boston AI Partners</span>
+          Leading <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">AI Development Company</span>
         </h2>
         <div class="h-1 w-20 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
+        <p class="text-lg text-gray-600 mt-4 max-w-3xl">
+          Specializing in enterprise artificial intelligence solutions, generative AI development, and responsible AI implementation for Fortune 500 companies.
+        </p>
       </div>
       
       <!-- Content with cards -->
@@ -91,10 +168,10 @@ import AILogoChip from '../components/AILogoChip';
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
               </svg>
             </div>
-            <h3 class="text-2xl font-display font-bold text-dark mb-2">Our Mission</h3>
+            <h3 class="text-2xl font-display font-bold text-dark mb-2">Our AI Mission</h3>
           </div>
           <p class="text-gray-700">
-            We believe AI should be transparent, ethical, and powerful—fueling innovation across industries while respecting people and data.
+            We develop ethical, enterprise-grade AI solutions that are transparent, secure, and powerful—driving innovation across industries while maintaining the highest standards of responsible AI development and data governance.
           </p>
         </div>
         
@@ -106,10 +183,10 @@ import AILogoChip from '../components/AILogoChip';
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
               </svg>
             </div>
-            <h3 class="text-2xl font-display font-bold text-dark mb-2">Our Approach</h3>
+            <h3 class="text-2xl font-display font-bold text-dark mb-2">Our AI Development Approach</h3>
           </div>
           <p class="text-gray-700">
-            At BaiP, we're focused on building practical AI solutions that solve real-world problems, starting with our flagship product for global education and expanding to enterprise AI services.
+            Boston AI Partners focuses on building practical AI solutions that solve real-world business problems, from our flagship generative AI products for global education to comprehensive enterprise AI consulting and custom machine learning development services.
           </p>
         </div>
         
@@ -121,10 +198,10 @@ import AILogoChip from '../components/AILogoChip';
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
             </div>
-            <h3 class="text-2xl font-display font-bold text-dark mb-2">Our Team</h3>
+            <h3 class="text-2xl font-display font-bold text-dark mb-2">Expert AI Development Team</h3>
           </div>
           <p class="text-gray-700">
-            Our team combines deep technical expertise with business acumen to deliver AI systems that drive measurable value while adhering to the highest standards of responsible development.
+            Our team of AI engineers and data scientists combines deep technical expertise in machine learning, natural language processing, and computer vision with business acumen to deliver AI systems that drive measurable ROI while adhering to responsible AI principles.
           </p>
         </div>
       </div>
@@ -212,9 +289,9 @@ import AILogoChip from '../components/AILogoChip';
     <div class="container mx-auto px-4 relative z-10">
       <!-- Section heading with animated typing effect -->
       <div class="mb-16">
-        <h2 class="section-heading text-center mb-4">What We Do</h2>
+        <h2 class="section-heading text-center mb-4">Our AI Solutions & Services</h2>
         <p class="text-center text-light/80 max-w-2xl mx-auto">
-          Our AI solutions combine cutting-edge technology with practical business applications to deliver measurable results.
+          Comprehensive artificial intelligence services from generative AI development to enterprise machine learning implementation, designed to deliver measurable business transformation.
         </p>
       </div>
       
@@ -233,7 +310,7 @@ import AILogoChip from '../components/AILogoChip';
   <!-- Why BaiP Section -->
   <section id="why" class="py-20 md:py-32 bg-dark/80 relative">
     <div class="container mx-auto px-4">
-      <h2 class="section-heading text-center">Why BaiP</h2>
+      <h2 class="section-heading text-center">Why Choose Boston AI Partners</h2>
       
       <WhyBaiP client:visible />
     </div>
@@ -255,13 +332,13 @@ import AILogoChip from '../components/AILogoChip';
   <!-- Contact Trigger Section -->
   <section id="contact-trigger" class="py-20 md:py-32 relative bg-dark/80">
     <div class="container mx-auto px-4 text-center">
-      <h2 class="section-heading">Let's Build the Future of AI—Together</h2>
+      <h2 class="section-heading">Transform Your Business with Enterprise AI Solutions</h2>
       <p class="text-xl max-w-3xl mx-auto mb-12 text-light/80">
-        Are you a university agency, enterprise leader, or investor looking to harness AI responsibly? Let's talk.
+        Partner with Boston AI Partners for responsible AI development, generative AI implementation, and machine learning solutions that drive real business value. Ready to unlock the power of artificial intelligence?
       </p>
       
       <ContactModalTrigger client:load>
-        <button class="cta-button">Contact Us</button>
+        <button class="cta-button" aria-label="Contact Boston AI Partners for AI consulting">Get Started with AI</button>
       </ContactModalTrigger>
 
       <div class="mt-12">
