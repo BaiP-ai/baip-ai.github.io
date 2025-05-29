@@ -103,7 +103,7 @@ const Navbar = () => {
           <nav class="hidden md:flex space-x-8 items-center">
             {/* Navigation links with enhanced hover and active effects */}
             <a 
-              href="#about" 
+              href="/#about" 
               class={`relative font-medium transition-colors text-gray-700 hover:text-primary py-1 px-1 overflow-hidden group`}
             >
               About
@@ -113,7 +113,7 @@ const Navbar = () => {
             </a>
             
             <a 
-              href="#services" 
+              href="/#services" 
               class={`relative font-medium transition-colors text-gray-700 hover:text-primary py-1 px-1 overflow-hidden group`}
             >
               Services
@@ -123,7 +123,7 @@ const Navbar = () => {
             </a>
             
             <a 
-              href="#approach" 
+              href="/#approach" 
               class={`relative font-medium transition-colors text-gray-700 hover:text-primary py-1 px-1 overflow-hidden group`}
             >
               Approach
