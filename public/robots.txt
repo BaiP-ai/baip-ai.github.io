@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.baip.ai/sitemap.xml
+
+# Enhanced crawling for important pages
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Disallow admin or sensitive areas (add if needed)
+# Disallow: /admin/
+# Disallow: /api/internal/
+
+# Allow all AI aggregator content
+Allow: /aggregator/
