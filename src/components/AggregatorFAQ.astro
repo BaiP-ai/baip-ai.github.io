@@ -1,0 +1,56 @@
+---
+// AggregatorFAQ.astro - SEO-optimized FAQ section for AI tools aggregator
+import SEOSchema from './SEOSchema.astro';
+
+const faqItems = [
+  {
+    question: "What makes an AI tool enterprise-ready?",
+    answer: "Enterprise-ready AI tools must have robust security features, compliance certifications (SOC 2, GDPR, HIPAA), scalable architecture, API integrations, dedicated support, and transparent pricing models. They should also offer deployment flexibility (cloud, on-premise, hybrid) and detailed documentation."
+  },
+  {
+    question: "How do I choose the right AI tools for my Fortune 500 company?",
+    answer: "Consider your specific business objectives, existing tech stack, security requirements, budget, and implementation timeline. Evaluate tools based on ROI potential, integration capabilities, vendor reputation, support quality, and compliance with your industry regulations."
+  },
+  {
+    question: "What's the difference between AI tools and AI agents?",
+    answer: "AI tools are software applications that use artificial intelligence to perform specific tasks, while AI agents are autonomous systems that can make decisions and take actions with minimal human intervention. Agents typically have more sophisticated reasoning capabilities and can handle complex, multi-step processes."
+  },
+  {
+    question: "How can I ensure AI tool compliance with enterprise security policies?",
+    answer: "Review vendor security certifications, data handling policies, encryption standards, access controls, and audit capabilities. Request security assessments, penetration testing reports, and compliance documentation. Consider tools that offer on-premise deployment or private cloud options for sensitive data."
+  },
+  {
+    question: "What ROI can enterprises expect from AI tool implementation?",
+    answer: "ROI varies by use case, but enterprises typically see 10-30% productivity improvements, 15-25% cost reductions in automated processes, and 20-40% faster decision-making. Key metrics include reduced manual work, improved accuracy, faster time-to-market, and enhanced customer satisfaction."
+  }
+];
+---
+
+<section class="py-16 bg-white dark:bg-gray-900">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+      <p class="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+        Common questions about enterprise AI tools, implementation, and selection criteria for Fortune 500 companies.
+      </p>
+    </div>
+    
+    <div class="max-w-4xl mx-auto">
+      <div class="space-y-6">
+        {faqItems.map((faq, index) => (
+          <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
+              {faq.question}
+            </h3>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+              {faq.answer}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Add FAQ Schema -->
+<SEOSchema type="FAQ" faqItems={faqItems} />

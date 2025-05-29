@@ -7,21 +7,69 @@ import { defineConfig } from 'astro/config';
 
 interface Props {
   title: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  keywords?: string;
+  schemaData?: any;
 }
 
-const { title } = Astro.props;
+const { 
+  title, 
+  description = "Boston AI Partners - Empowering the future with responsible, enterprise-grade AI solutions. Generative AI development, AI strategy consulting, and machine learning implementation services.",
+  canonicalUrl = "https://www.baip.ai",
+  ogImage = "/images/baip-ai-og.jpg",
+  keywords = "AI solutions, artificial intelligence services, generative AI, machine learning, AI development, enterprise AI, AI consulting, responsible AI, AI implementation",
+  schemaData
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Boston AI Partners - Empowering the future with responsible, real-world AI solutions">
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Boston AI Partners" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Boston AI Partners" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:site" content="@BAIP_AI" />
+    
+    <!-- Favicon and Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Schema.org Structured Data -->
+    {schemaData && (
+      <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+    )}
+    
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CD3V675MMR"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
