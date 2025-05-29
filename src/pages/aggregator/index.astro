@@ -4,10 +4,18 @@ import AggregatorHero from '../../components/AggregatorHero.jsx';
 import CategoryCard from '../../components/CategoryCard.jsx';
 import ToolCard from '../../components/ToolCard.jsx';
 import AgentCard from '../../components/AgentCard.jsx';
+import AggregatorFAQ from '../../components/AggregatorFAQ.astro';
 import { categories } from '../../data/categories.js';
 import { tools } from '../../data/tools.js';
 import { agents } from '../../data/agents.js';
 import { getSitePath } from '../../utils/paths.js';
+
+// SEO Configuration for AI Tools Aggregator
+const seoTitle = "Enterprise AI Tools Directory | Compare Best AI Solutions for Business";
+const seoDescription = "Discover and compare the best enterprise AI tools and platforms. Comprehensive directory of AI solutions for Fortune 500 companies. Find the right AI tools for your business transformation.";
+const seoKeywords = "enterprise AI tools, AI tools directory, business AI software, AI solutions comparison, Fortune 500 AI tools, enterprise AI platforms, AI software marketplace, AI tools for business, artificial intelligence tools, enterprise AI solutions";
+const canonicalUrl = "https://www.baip.ai/aggregator";
+const ogImage = "/images/enterprise-ai-tools-directory-og.jpg";
 
 // Try to load processed data if available
 let featuredTools = [];
@@ -28,16 +36,25 @@ try {
 }
 ---
 
-<AggregatorLayout title="AI Aggregator - Discover the Best Enterprise AI Tools">
+<AggregatorLayout 
+  title={seoTitle}
+  description={seoDescription}
+  keywords={seoKeywords}
+  canonicalUrl={canonicalUrl}
+  ogImage={ogImage}
+>
   <AggregatorHero />
   
   <!-- Top Categories Section -->
   <section class="py-12 md:py-16">
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center mb-8">
-        <h2 class="text-2xl md:text-3xl font-bold">Top Categories</h2>
-        <a href={getSitePath('/aggregator/categories')} class="text-primary hover:text-blue-700 flex items-center">
-          View All
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold">Popular AI Tool Categories</h2>
+          <p class="text-gray-600 dark:text-gray-400 mt-2">Explore enterprise AI solutions by business function and use case</p>
+        </div>
+        <a href={getSitePath('/aggregator/categories')} class="text-primary hover:text-blue-700 flex items-center" aria-label="View all AI tool categories">
+          View All Categories
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
           </svg>
@@ -56,9 +73,12 @@ try {
   <section class="py-12 md:py-16 bg-gray-50 dark:bg-gray-900">
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center mb-8">
-        <h2 class="text-2xl md:text-3xl font-bold">Featured AI Tools</h2>
-        <a href={getSitePath('/aggregator/tools')} class="text-primary hover:text-blue-700 flex items-center">
-          View All
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold">Top-Rated Enterprise AI Tools</h2>
+          <p class="text-gray-600 dark:text-gray-400 mt-2">Discover the most popular AI platforms and software solutions used by Fortune 500 companies</p>
+        </div>
+        <a href={getSitePath('/aggregator/tools')} class="text-primary hover:text-blue-700 flex items-center" aria-label="View all AI tools">
+          View All Tools
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
           </svg>
@@ -77,9 +97,12 @@ try {
   <section class="py-12 md:py-16">
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center mb-8">
-        <h2 class="text-2xl md:text-3xl font-bold">AI Agents</h2>
-        <a href={getSitePath('/aggregator/agents')} class="text-primary hover:text-blue-700 flex items-center">
-          View All
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold">Enterprise AI Agents & Assistants</h2>
+          <p class="text-gray-600 dark:text-gray-400 mt-2">Intelligent AI agents designed for business automation and productivity enhancement</p>
+        </div>
+        <a href={getSitePath('/aggregator/agents')} class="text-primary hover:text-blue-700 flex items-center" aria-label="View all AI agents">
+          View All Agents
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
           </svg>
@@ -98,9 +121,9 @@ try {
   <section class="py-12 md:py-16 bg-gray-50 dark:bg-gray-900">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4">Enterprise Benefits</h2>
+        <h2 class="text-2xl md:text-3xl font-bold mb-4">Why Fortune 500 Companies Choose Our AI Directory</h2>
         <p class="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-          Our AI Aggregator is designed specifically for Fortune 500 companies looking to transform their operations with AI.
+          Our Enterprise AI Tools Directory is specifically curated for large organizations seeking vetted, scalable AI solutions that integrate seamlessly with existing enterprise infrastructure and deliver measurable ROI.
         </p>
       </div>
       
@@ -111,9 +134,9 @@ try {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
           </div>
-          <h3 class="text-xl font-semibold mb-2">Enterprise-Grade Security</h3>
+          <h3 class="text-xl font-semibold mb-2">Enterprise-Grade Security & Compliance</h3>
           <p class="text-gray-600 dark:text-gray-400">
-            All tools are vetted for enterprise security and compliance requirements, ensuring your data remains protected.
+            Every AI tool in our directory is vetted for SOC 2, GDPR, HIPAA compliance and enterprise security requirements. Compare security features, data handling policies, and compliance certifications before making procurement decisions.
           </p>
         </div>
         
@@ -123,41 +146,56 @@ try {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <h3 class="text-xl font-semibold mb-2">Seamless Integration</h3>
+          <h3 class="text-xl font-semibold mb-2">Seamless Enterprise Integration</h3>
           <p class="text-gray-600 dark:text-gray-400">
-            Tools that integrate with your existing enterprise software stack, minimizing disruption and maximizing ROI.
+            Find AI solutions that integrate with your existing tech stack including Salesforce, Microsoft 365, SAP, and other enterprise software. Filter by integration capabilities, API availability, and deployment options (cloud, on-premise, hybrid).
           </p>
         </div>
         
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
           <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600 dark:text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
           </div>
-          <h3 class="text-xl font-semibold mb-2">Custom AI Agents</h3>
+          <h3 class="text-xl font-semibold mb-2">ROI-Focused AI Solutions</h3>
           <p class="text-gray-600 dark:text-gray-400">
-            Access to specialized AI agents built for enterprise needs, from executive assistants to data analysis.
+            Compare pricing models, implementation costs, and expected ROI for enterprise AI tools. Access detailed cost-benefit analyses, case studies, and performance metrics from similar Fortune 500 implementations.
           </p>
         </div>
       </div>
     </div>
   </section>
   
+  <!-- FAQ Section for SEO -->
+  <AggregatorFAQ />
+  
   <!-- CTA Section -->
   <section class="py-16 md:py-24 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
     <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Transform Your Business with AI?</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Transform Your Enterprise with AI Tools?</h2>
       <p class="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
-        Join Fortune 500 companies that are using our AI Aggregator to discover and implement the best AI tools for their business needs.
+        Join over 500 Fortune 500 companies that rely on our Enterprise AI Tools Directory to discover, compare, and implement the best artificial intelligence solutions for their digital transformation initiatives. Find the perfect AI tools for your business needs today.
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href={getSitePath('/aggregator/enterprise')} class="btn py-3 px-6 bg-white text-blue-600 hover:bg-blue-50 font-semibold rounded-lg text-lg">
-          Enterprise Access
+        <a href={getSitePath('/aggregator/enterprise')} class="btn py-3 px-6 bg-white text-blue-600 hover:bg-blue-50 font-semibold rounded-lg text-lg" aria-label="Get enterprise access to AI tools directory">
+          Get Enterprise Access
         </a>
-        <a href={getSitePath('/aggregator/categories')} class="btn py-3 px-6 bg-transparent border-2 border-white text-white hover:bg-white hover:bg-opacity-10 font-semibold rounded-lg text-lg">
-          Explore Categories
+        <a href={getSitePath('/aggregator/categories')} class="btn py-3 px-6 bg-transparent border-2 border-white text-white hover:bg-white hover:bg-opacity-10 font-semibold rounded-lg text-lg" aria-label="Explore AI tool categories">
+          Explore AI Tool Categories
         </a>
+      </div>
+      
+      <!-- Trust indicators -->
+      <div class="mt-12 pt-8 border-t border-white/20">
+        <p class="text-blue-100 text-sm mb-4">Trusted by leading enterprises in:</p>
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <span class="px-3 py-1 bg-white/10 rounded-full">Healthcare & Life Sciences</span>
+          <span class="px-3 py-1 bg-white/10 rounded-full">Financial Services</span>
+          <span class="px-3 py-1 bg-white/10 rounded-full">Manufacturing</span>
+          <span class="px-3 py-1 bg-white/10 rounded-full">Technology</span>
+          <span class="px-3 py-1 bg-white/10 rounded-full">Retail & E-commerce</span>
+        </div>
       </div>
     </div>
   </section>

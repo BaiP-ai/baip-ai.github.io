@@ -1,0 +1,97 @@
+---
+// SEOSchema.astro - Component for adding structured data to pages
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  type?: 'FAQ' | 'Article' | 'Product' | 'Service';
+  faqItems?: FAQItem[];
+  article?: {
+    headline: string;
+    author: string;
+    datePublished: string;
+    dateModified?: string;
+    description: string;
+  };
+  product?: {
+    name: string;
+    description: string;
+    image: string;
+    brand: string;
+    offers?: {
+      price: string;
+      priceCurrency: string;
+      availability: string;
+    };
+  };
+  service?: {
+    name: string;
+    description: string;
+    provider: string;
+    serviceType: string;
+    areaServed: string;
+  };
+}
+
+const { type = 'FAQ', faqItems, article, product, service } = Astro.props;
+
+let schemaData: any = {};
+
+if (type === 'FAQ' && faqItems && faqItems.length > 0) {
+  schemaData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  };
+}
+if (type === 'Article' && article) {
+  schemaData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": article.headline,
+    "author": {
+      "@type": "Organization",
+      "name": article.author
+    },
+    "datePublished": article.datePublished,
+    "dateModified": article.dateModified || article.datePublished,
+    "description": article.description,
+    "publisher": {
+      "@type": "Organization",
+      "name": "Boston AI Partners",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.baip.ai/images/baip-logo.png"
+      }
+    }
+  };
+}
+
+if (type === 'Service' && service) {
+  schemaData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": service.name,
+    "description": service.description,
+    "provider": {
+      "@type": "Organization",
+      "name": service.provider
+    },
+    "serviceType": service.serviceType,
+    "areaServed": service.areaServed
+  };
+}
+---
+
+{Object.keys(schemaData).length > 0 && (
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+)}

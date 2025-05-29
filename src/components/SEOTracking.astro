@@ -1,0 +1,66 @@
+---
+// SEOTracking.astro - Enhanced analytics and SEO tracking
+const { 
+  gaId = 'G-CD3V675MMR', 
+  page,
+  keywords,
+  contentCategory 
+} = Astro.props;
+---
+
+<!-- Enhanced Google Analytics with SEO tracking -->
+<script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+<script define:vars={{ gaId, page, keywords, contentCategory }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+  
+  gtag('config', gaId, {
+    page_title: page?.title,
+    page_location: window.location.href,
+    content_group1: contentCategory || 'General'
+  });
+
+  // Track SEO-specific events
+  gtag('event', 'page_view_seo', {
+    event_category: 'SEO',
+    event_label: page?.title || document.title,
+    target_keywords: keywords || 'unknown',
+    page_type: contentCategory || 'general'
+  });
+
+  // Track scroll depth for engagement metrics
+  let scrollTracked = false;
+  window.addEventListener('scroll', function() {
+    if (!scrollTracked && window.scrollY > document.body.scrollHeight * 0.75) {
+      gtag('event', 'scroll_depth_75', {
+        event_category: 'Engagement',
+        event_label: 'Scrolled 75%'
+      });
+      scrollTracked = true;
+    }
+  });
+
+  // Track CTA clicks
+  document.addEventListener('click', function(e) {
+    if (e.target.matches('.cta-button, [aria-label*="Contact"]')) {
+      gtag('event', 'cta_click', {
+        event_category: 'Conversion',
+        event_label: e.target.textContent || e.target.getAttribute('aria-label'),
+        page_type: contentCategory || 'general'
+      });
+    }
+  });
+</script>
+
+<!-- Hotjar or other heatmap tracking (optional) -->
+<!-- <script>
+  (function(h,o,t,j,a,r){
+    h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+    h._hjSettings={hjid:YOUR_HOTJAR_ID,hjsv:6};
+    a=o.getElementsByTagName('head')[0];
+    r=o.createElement('script');r.async=1;
+    r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+    a.appendChild(r);
+  })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script> -->
