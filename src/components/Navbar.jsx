@@ -142,6 +142,16 @@ const Navbar = () => {
               }`}></span>
             </a>
             
+            <a 
+              href="/blog" 
+              class={`relative font-medium transition-colors text-gray-700 hover:text-primary py-1 px-1 overflow-hidden group`}
+            >
+              Blog
+              <span class={`absolute bottom-0 left-0 w-full h-0.5 bg-primary transform transition-transform duration-300 ${
+                currentPath().startsWith('/blog') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+              }`}></span>
+            </a>
+            
             <button 
               onClick={openContactModal} 
               class={`cta-button relative overflow-hidden group`}
@@ -209,6 +219,15 @@ const Navbar = () => {
             }`}
           >
             AI Aggregator
+          </a>
+          <a 
+            href="/blog" 
+            onClick={() => toggleMobileMenu(false)} 
+            class={`block py-2 font-medium transition-colors hover:text-primary ${
+              currentPath().startsWith('/blog') ? 'text-primary pl-2 border-l-2 border-primary bg-blue-50/50' : 'text-gray-700'
+            }`}
+          >
+            Blog
           </a>
           <button 
             onClick={() => {

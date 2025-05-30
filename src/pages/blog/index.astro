@@ -1,0 +1,152 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const featuredPosts = posts.filter(post => post.data.featured);
+const regularPosts = posts.filter(post => !post.data.featured);
+---
+
+<Layout 
+	title="Blog - Boston AI Partners" 
+	description="Insights, updates, and thought leadership from Boston AI Partners on artificial intelligence, machine learning, and responsible AI implementation."
+>
+	<div class="min-h-screen bg-gradient-to-b from-white via-blue-50/30 to-purple-50/20">
+		<!-- Hero Section -->
+		<section class="relative pt-24 pb-16 px-4">
+			<div class="container mx-auto max-w-6xl text-center">
+				<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-6">
+					AI Insights & Updates
+				</h1>
+				<p class="text-xl text-gray-600 max-w-3xl mx-auto">
+					Discover the latest in artificial intelligence, machine learning insights, and responsible AI implementation strategies from our team of experts.
+				</p>
+			</div>
+		</section>
+
+		<!-- Blog Posts -->
+		<section class="pb-16 px-4">
+			<div class="container mx-auto max-w-6xl">
+				{posts.length === 0 ? (
+					<div class="text-center py-16">
+						<div class="bg-white rounded-xl shadow-lg p-12">
+							<h2 class="text-2xl font-bold text-gray-800 mb-4">Coming Soon!</h2>
+							<p class="text-gray-600">We're working on exciting content for you. Check back soon for insights on AI, machine learning, and technology trends.</p>
+						</div>
+					</div>
+				) : (
+					<div class="space-y-12">
+						{/* Featured Posts */}
+						{featuredPosts.length > 0 && (
+							<div>
+								<h2 class="text-2xl font-bold text-gray-800 mb-8">Featured Posts</h2>
+								<div class="grid gap-8 md:gap-12">
+									{featuredPosts.map((post) => (
+										<article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+											<a href={`/blog/${post.slug}/`} class="block">
+												<div class="md:flex">
+													{post.data.heroImage && (
+														<div class="md:w-1/2">
+															<img 
+																src={post.data.heroImage} 
+																alt={post.data.title}
+																class="w-full h-64 md:h-full object-cover"
+															/>
+														</div>
+													)}
+													<div class={`p-8 md:p-12 ${post.data.heroImage ? 'md:w-1/2' : 'w-full'}`}>
+														<div class="flex items-center gap-4 mb-4">
+															<FormattedDate date={post.data.pubDate} />
+															{post.data.author && (
+																<span class="text-gray-500">•</span>
+																<span class="text-gray-600">{post.data.author}</span>
+															)}
+														</div>
+														<h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 hover:text-primary transition-colors">
+															{post.data.title}
+														</h3>
+														<p class="text-gray-600 text-lg leading-relaxed mb-6">
+															{post.data.description}
+														</p>
+														{post.data.tags && post.data.tags.length > 0 && (
+															<div class="flex flex-wrap gap-2">
+																{post.data.tags.map((tag) => (
+																	<span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+																		{tag}
+																	</span>
+																))}
+															</div>
+														)}
+													</div>
+												</div>
+											</a>
+										</article>
+									))}
+								</div>
+							</div>
+						)}
+
+						{/* Regular Posts */}
+						{regularPosts.length > 0 && (
+							<div>
+								{featuredPosts.length > 0 && (
+									<h2 class="text-2xl font-bold text-gray-800 mb-8">Latest Posts</h2>
+								)}
+								<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+									{regularPosts.map((post) => (
+										<article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+											<a href={`/blog/${post.slug}/`} class="block">
+												{post.data.heroImage && (
+													<img 
+														src={post.data.heroImage} 
+														alt={post.data.title}
+														class="w-full h-48 object-cover"
+													/>
+												)}
+												<div class="p-6">
+													<div class="flex items-center gap-4 mb-3">
+														<FormattedDate date={post.data.pubDate} />
+														{post.data.author && (
+															<>
+																<span class="text-gray-400">•</span>
+																<span class="text-gray-600 text-sm">{post.data.author}</span>
+															</>
+														)}
+													</div>
+													<h3 class="text-xl font-bold text-gray-900 mb-3 hover:text-primary transition-colors">
+														{post.data.title}
+													</h3>
+													<p class="text-gray-600 leading-relaxed mb-4">
+														{post.data.description}
+													</p>
+													{post.data.tags && post.data.tags.length > 0 && (
+														<div class="flex flex-wrap gap-2">
+															{post.data.tags.slice(0, 3).map((tag) => (
+																<span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">
+																	{tag}
+																</span>
+															))}
+															{post.data.tags.length > 3 && (
+																<span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
+																	+{post.data.tags.length - 3} more
+																</span>
+															)}
+														</div>
+													)}
+												</div>
+											</a>
+										</article>
+									))}
+								</div>
+							</div>
+						)}
+					</div>
+				)}
+			</div>
+		</section>
+	</div>
+</Layout>
