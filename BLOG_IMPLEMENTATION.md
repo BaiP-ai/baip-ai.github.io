@@ -76,19 +76,27 @@ The blog link has been added to both desktop and mobile navigation menus in the 
 
 ## RSS Feed
 
-An RSS feed is automatically generated at `/rss.xml` containing all published blog posts.
+An RSS feed configuration has been created but is currently disabled to avoid build errors. To enable it:
+
+1. Install the RSS dependency: `npm install @astrojs/rss`
+2. Rename `src/pages/rss.xml.js.disabled` to `src/pages/rss.xml.js`
+3. The RSS feed will be available at `/rss.xml`
+
+The RSS dependency has been added to package.json but the file is disabled until explicitly enabled.
 
 ## Dependencies Added
 
 - `@tailwindcss/typography`: For prose styling in blog content
+- `@astrojs/rss`: For RSS feed generation (optional, currently disabled)
 
 ## Next Steps
 
-1. Install the new dependency: `npm install @tailwindcss/typography`
+1. Install the new dependencies: `npm install`
 2. Add actual hero images to `public/images/blog/`
 3. Replace sample blog posts with real content
 4. Test the implementation locally with `npm run dev`
 5. Deploy the updated website
+6. (Optional) Enable RSS feed by renaming `rss.xml.js.disabled` to `rss.xml.js`
 
 ## Sample Blog Posts
 
