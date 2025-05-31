@@ -10,16 +10,16 @@ tags: ["AI", "𝐏𝐫𝐞𝐜𝐢𝐬𝐢𝐨𝐧", "𝐑𝐞𝐥𝐢𝐚𝐛�
 featured: false
 ---
 
-We were never built for flawless execution.
-We guess. We forget. We rationalize.
+We were never built for flawless execution.<br />
+We guess. We forget. We rationalize.<br />
 We burn out.
 
 Machines don’t.
 
 They don’t flinch before a big decision. They don’t reframe failure to protect an ego. They don’t need coffee to stay sharp after back-to-back meetings.
 
-🔹 Precision is math—not a mood.
-🔹 Reliability is structural—not emotional.
+🔹 Precision is math—not a mood.<br />
+🔹 Reliability is structural—not emotional.<br />
 🔹 Scalability is architecture—not effort.
 
 We love to believe human nature is our biggest strength. But when systems fail, it’s rarely because the tech was weak. It’s because leadership clung to control, defended the past, and mistook legacy for wisdom.
@@ -34,5 +34,5 @@ So we can lead with what only we have—vision, imagination, integrity!
 
 If you’re building at the intersection of humanity and intelligence—let’s talk.
 
-𝐓𝐡𝐞 𝐟𝐮𝐭𝐮𝐫𝐞 𝐝𝐨𝐞𝐬𝐧’𝐭 𝐧𝐞𝐞𝐝 𝐦𝐨𝐫𝐞 𝐡𝐞𝐬𝐢𝐭𝐚𝐭𝐢𝐨𝐧.
+𝐓𝐡𝐞 𝐟𝐮𝐭𝐮𝐫𝐞 𝐝𝐨𝐞𝐬𝐧’𝐭 𝐧𝐞𝐞𝐝 𝐦𝐨𝐫𝐞 𝐡𝐞𝐬𝐢𝐭𝐚𝐭𝐢𝐨𝐧.<br />
 𝐈𝐭 𝐧𝐞𝐞𝐝𝐬 𝐜𝐨𝐧𝐯𝐢𝐜𝐭𝐢𝐨𝐧.

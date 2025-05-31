@@ -13,8 +13,8 @@ Back in early 2022, AI interaction meant chatting with models like ChatGPT, limi
 𝐓𝐨𝐝𝐚𝐲, 𝐰𝐞’𝐫𝐞 𝐞𝐧𝐭𝐞𝐫𝐢𝐧𝐠 𝐭𝐡𝐞 𝐀𝐠𝐞𝐧𝐭𝐢𝐜 𝐄𝐫𝐚: AI agents that don’t just respond but think, reason, and act on our behalf, whether it’s booking trips, managing tasks, or collaborating across platforms.
 
 𝐊𝐞𝐲 𝐦𝐢𝐥𝐞𝐬𝐭𝐨𝐧𝐞𝐬 𝐢𝐧 𝐭𝐡𝐢𝐬 𝐞𝐯𝐨𝐥𝐮𝐭𝐢𝐨𝐧:
- 🔹 Retrieval-Augmented Generation (RAG): Enriching AI responses with live, enterprise-specific data for relevant, real-time insights.
- 🔹 Agent Protocols: New frameworks like MCP, A2A, and Nanda are enabling AI agents to scale, seamlessly integrating new tools, collaborating peer-to-peer, and operating in decentralized ecosystems.
+ 🔹 Retrieval-Augmented Generation (RAG): Enriching AI responses with live, enterprise-specific data for relevant, real-time insights.<br />
+ 🔹 Agent Protocols: New frameworks like MCP, A2A, and Nanda are enabling AI agents to scale, seamlessly integrating new tools, collaborating peer-to-peer, and operating in decentralized ecosystems.<br />
  🔹 From Tools to Ecosystems: MCP empowers AI to access diverse tools; A2A promotes agent collaboration; Nanda envisions a global network of interoperable AI agents.
 
 𝐖𝐡𝐲 𝐭𝐡𝐢𝐬 𝐦𝐚𝐭𝐭𝐞𝐫𝐬: Businesses can now leverage AI not just for information retrieval but for automation, collaboration, and complex decision-making — all at scale.
