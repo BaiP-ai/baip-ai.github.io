@@ -24,12 +24,12 @@ They don’t flinch before a big decision. They don’t reframe failure to prote
 
 We love to believe human nature is our biggest strength. But when systems fail, it’s rarely because the tech was weak. It’s because leadership clung to control, defended the past, and mistook legacy for wisdom.
 
-Let’s be clear:
-This isn’t a battle between humans and AI.
+Let’s be clear:<br />
+This isn’t a battle between humans and AI.<br />
 It’s a reckoning with what humans were never meant to do alone.
 
-Let machines bring the accuracy.
-Let them scale. Let them remember.
+Let machines bring the accuracy.<br />
+Let them scale. Let them remember.<br />
 So we can lead with what only we have—vision, imagination, integrity!
 
 If you’re building at the intersection of humanity and intelligence—let’s talk.
