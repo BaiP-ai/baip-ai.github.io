@@ -12,16 +12,16 @@ Many companies focus on crafting an “AI strategy,” but the reality is much b
 Being AI-first means fostering a cultural mindset shift throughout the entire organization.
 
 𝐓𝐡𝐢𝐬 𝐬𝐡𝐢𝐟𝐭 𝐦𝐮𝐬𝐭 𝐡𝐚𝐩𝐩𝐞𝐧:
- ✅ From the top — leadership driving vision, clearing obstacles, and holding teams accountable
- ✅ From the ground up — teams actively experimenting, learning, and integrating AI into everyday workflows
- ✅ Across departments — not just IT, but sales, operations, HR, finance, and customer service
+ ✅ From the top — leadership driving vision, clearing obstacles, and holding teams accountable<br />
+ ✅ From the ground up — teams actively experimenting, learning, and integrating AI into everyday workflows<br />
+ ✅ Across departments — not just IT, but sales, operations, HR, finance, and customer service<br />
 
 𝐀𝐧 𝐀𝐈-𝐟𝐢𝐫𝐬𝐭 𝐦𝐢𝐧𝐝𝐬𝐞𝐭 𝐢𝐧𝐯𝐨𝐥𝐯𝐞𝐬:
- • Reimagining every process by asking, “Where can intelligent automation make an impact?”
- • Designing products and services with AI at their core, rather than adding it as an afterthought
- • Building robust data systems that empower decision-making instead of just reporting
- • Changing leadership metrics to focus on real business outcomes, not just technology adoption
- • Cultivating a culture where experimenting with AI is encouraged and normalized
+ • Reimagining every process by asking, “Where can intelligent automation make an impact?”<br />
+ • Designing products and services with AI at their core, rather than adding it as an afterthought<br />
+ • Building robust data systems that empower decision-making instead of just reporting<br />
+ • Changing leadership metrics to focus on real business outcomes, not just technology adoption<br />
+ • Cultivating a culture where experimenting with AI is encouraged and normalized<br />
 
 In organizations that truly put AI first, it’s not a one-time initiative — it’s the engine behind how they operate, innovate, and grow.
 
