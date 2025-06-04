@@ -1,4 +1,30 @@
-EFIND_DIR, 'pagefind.js');
+#!/usr/bin/env node
+
+/**
+ * Post-build script to optimize Pagefind search index
+ * This script runs after Astro build to ensure proper search configuration
+ */
+
+import { execSync } from 'child_process';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { join } from 'path';
+
+const DIST_DIR = './dist';
+const PAGEFIND_DIR = join(DIST_DIR, '_pagefind');
+
+console.log('🔍 Optimizing Pagefind search index...');
+
+try {
+  // Check if the index was created successfully
+  if (!existsSync(PAGEFIND_DIR)) {
+    console.warn('⚠️ Pagefind index directory not found - search may not be available');
+    process.exit(0);
+  }
+
+  console.log('✅ Search index found successfully');
+
+  // Optimize the search configuration
+  const configPath = join(PAGEFIND_DIR, 'pagefind.js');
   
   if (existsSync(configPath)) {
     console.log('⚙️ Optimizing search configuration...');
@@ -67,5 +93,7 @@ window.pagefindConfig = {
 
 } catch (error) {
   console.error('❌ Error optimizing Pagefind:', error.message);
-  process.exit(1);
+  // Don't fail the build if optimization fails
+  console.log('⚠️ Continuing build without search optimization...');
+  process.exit(0);
 }
