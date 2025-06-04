@@ -13,22 +13,55 @@ export async function getStaticPaths() {
 }
 
 const { agent } = Astro.props;
+
+const seoTitle = `${agent.name} - Enterprise AI Agent | AI Agents Directory`;
+const seoDescription = `${agent.description} Learn about ${agent.name} features, integrations, and enterprise use cases. Powered by ${agent.model}.`;
+const canonicalUrl = `https://www.baip.ai/aggregator/agents/${agent.id}`;
 ---
 
-<AggregatorLayout title={`${agent.name} - Enterprise AI Agent`}>
-  <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-12">
-    <div class="container mx-auto px-4">
-      <h1 class="text-3xl md:text-4xl font-bold mb-4 text-white">{agent.name}</h1>
-      <p class="text-xl text-blue-100 max-w-3xl">{agent.description}</p>
-      
-      <div class="mt-6 inline-flex items-center bg-white bg-opacity-20 px-4 py-2 rounded-full">
-        <span class="text-sm font-medium">Powered by</span>
-        <span class="ml-2 bg-purple-800 text-white px-3 py-1 rounded-full text-xs font-semibold">
-          {agent.model.split('/')[1]}
-        </span>
+<AggregatorLayout 
+  title={seoTitle}
+  description={seoDescription}
+  canonicalUrl={canonicalUrl}
+>
+  <main data-pagefind-body>
+    <!-- Breadcrumb Navigation -->
+    <nav class="bg-gray-50 dark:bg-gray-900 py-4 no-search" aria-label="Breadcrumb">
+      <div class="container mx-auto px-4">
+        <ol class="flex items-center space-x-2 text-sm">
+          <li><a href={getSitePath('/aggregator')} class="text-blue-600 hover:text-blue-800">AI Tools Directory</a></li>
+          <li class="text-gray-500">›</li>
+          <li><a href={getSitePath('/aggregator/agents')} class="text-blue-600 hover:text-blue-800">AI Agents</a></li>
+          <li class="text-gray-500">›</li>
+          <li class="text-gray-600 font-medium" data-pagefind-meta="title">{agent.name}</li>
+        </ol>
+      </div>
+    </nav>
+
+    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-12">
+      <div class="container mx-auto px-4">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4 text-white" data-pagefind-meta="title">{agent.name}</h1>
+        <p class="text-xl text-blue-100 max-w-3xl" data-pagefind-meta="description">{agent.description}</p>
+        
+        <div class="mt-6 inline-flex items-center bg-white bg-opacity-20 px-4 py-2 rounded-full">
+          <span class="text-sm font-medium">Powered by</span>
+          <span class="ml-2 bg-purple-800 text-white px-3 py-1 rounded-full text-xs font-semibold" data-pagefind-meta="model">
+            {agent.model.split('/')[1]}
+          </span>
+        </div>
+        
+        <div class="mt-4">
+          <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm" data-pagefind-meta="category">
+            {agent.category}
+          </span>
+          {agent.subcategory && (
+            <span class="ml-2 bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm" data-pagefind-meta="subcategory">
+              {agent.subcategory}
+            </span>
+          )}
+        </div>
       </div>
     </div>
-  </div>
   
   <section class="py-12">
     <div class="container mx-auto px-4">
@@ -38,7 +71,7 @@ const { agent } = Astro.props;
             <h2 class="text-2xl font-bold mb-4">Features</h2>
             <ul class="space-y-4">
               {agent.features.map((feature) => (
-                <li class="flex items-start">
+                <li class="flex items-start" data-pagefind-meta="features">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                   </svg>
@@ -52,7 +85,7 @@ const { agent } = Astro.props;
             <h2 class="text-2xl font-bold mb-4">Use Cases</h2>
             <div class="space-y-6">
               {agent.useCases.map((useCase) => (
-                <div class="border-l-4 border-purple-600 pl-4">
+                <div class="border-l-4 border-purple-600 pl-4" data-pagefind-meta="use_cases">
                   <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{useCase.title}</h3>
                   <p class="text-gray-700 dark:text-gray-300">{useCase.description}</p>
                 </div>
@@ -134,4 +167,5 @@ const { agent } = Astro.props;
       </div>
     </div>
   </section>
+  </main>
 </AggregatorLayout>
