@@ -5,7 +5,7 @@ pubDate: 2025-05-30
 author: "Boston AI Partners Team"
 heroImage: "/images/blog/ai-first-not-just-a-strategy.jpg"
 tags: ["AI transformation", "competitive advantage", "business innovation", "AI strategy", "digital transformation", "Boston AI Partners"]
-featured: true
+featured: false
 ---
 
 Many companies focus on crafting an "AI strategy," but the reality is much broader:
