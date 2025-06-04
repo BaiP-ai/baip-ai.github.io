@@ -3,6 +3,7 @@ Allow: /
 
 # Sitemap location
 Sitemap: https://www.baip.ai/sitemap.xml
+Sitemap: https://www.baip.ai/aggregator-sitemap.xml
 
 # Enhanced crawling for important pages
 User-agent: Googlebot

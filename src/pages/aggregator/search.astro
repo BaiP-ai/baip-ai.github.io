@@ -1,0 +1,117 @@
+---
+import AggregatorLayout from '../../layouts/AggregatorLayout.astro';
+import PagefindSearch from '../../components/PagefindSearch.jsx';
+import { getSitePath } from '../../utils/paths.js';
+
+const seoTitle = "Search AI Tools & Agents | Enterprise AI Directory";
+const seoDescription = "Search through hundreds of enterprise AI tools and agents. Find the perfect AI solution for your business needs with advanced filtering and detailed comparisons.";
+const canonicalUrl = "https://www.baip.ai/aggregator/search";
+---
+
+<AggregatorLayout 
+  title={seoTitle}
+  description={seoDescription}
+  canonicalUrl={canonicalUrl}
+>
+  <main data-pagefind-body>
+    <!-- Search Header -->
+    <section class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-8">
+          <h1 class="text-3xl md:text-4xl font-bold mb-4">Search Enterprise AI Solutions</h1>
+          <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+            Find the perfect AI tools and agents for your business with our comprehensive search
+          </p>
+        </div>
+        
+        <PagefindSearch maxResults={20} />
+      </div>
+    </section>
+
+    <!-- Search Results Container -->
+    <section class="py-12 min-h-screen">
+      <div class="container mx-auto px-4">
+        <!-- Results will be populated by Pagefind search component -->
+        <div id="pagefind-results" class="space-y-6"></div>
+        
+        <!-- No Results State -->
+        <div id="no-results" class="text-center py-12" style="display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-300 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <h2 class="text-2xl font-bold text-gray-600 mb-2">No results found</h2>
+          <p class="text-gray-500 mb-6">Try adjusting your search terms or browse our categories</p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href={getSitePath('/aggregator/tools')} class="btn bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg">
+              Browse AI Tools
+            </a>
+            <a href={getSitePath('/aggregator/agents')} class="btn bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg">
+              Browse AI Agents
+            </a>
+          </div>
+        </div>
+
+        <!-- Popular Categories -->
+        <div class="mt-16">
+          <h2 class="text-2xl font-bold mb-6 text-center">Popular Categories</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href={getSitePath('/aggregator/categories/business-operations')} class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center">
+              <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 dark:text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3 class="font-semibold">Business Operations</h3>
+            </a>
+            
+            <a href={getSitePath('/aggregator/categories/customer-experience')} class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center">
+              <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 class="font-semibold">Customer Experience</h3>
+            </a>
+            
+            <a href={getSitePath('/aggregator/categories/development-tools')} class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center">
+              <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600 dark:text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+              </div>
+              <h3 class="font-semibold">Development Tools</h3>
+            </a>
+            
+            <a href={getSitePath('/aggregator/categories/cybersecurity')} class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center">
+              <div class="w-12 h-12 bg-red-100 dark:bg-red-900 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 dark:text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 class="font-semibold">Cybersecurity</h3>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Enhanced search functionality script -->
+  <script is:inline>
+    // Initialize search from URL parameters
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const query = urlParams.get('q');
+      
+      if (query) {
+        // Find the search input and populate it
+        const searchInput = document.querySelector('input[type="text"]');
+        if (searchInput) {
+          searchInput.value = query;
+          // Trigger search
+          searchInput.dispatchEvent(new Event('input'));
+        }
+      }
+    });
+  </script>
+</AggregatorLayout>

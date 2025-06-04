@@ -1,0 +1,18 @@
+source: dist
+bundle_dir: _pagefind
+glob: "**/*.{html}"
+exclude_selectors:
+  - "nav"
+  - ".no-search"
+  - "footer"
+  - "script"
+  - "style"
+  - ".breadcrumb"
+force_language: en
+excerpt_length: 30
+merge_index: []
+ranking:
+  page_rank_weight: 1.0
+  term_frequency_weight: 1.0
+  term_saturation_weight: 1.0
+  term_similarity_weight: 0.5

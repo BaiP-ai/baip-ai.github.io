@@ -5,3 +5,25 @@ node_modules
 dist
 dist-ssr
 *.local
+
+# Astro cache
+.astro/
+
+# Build cache
+cache/
+
+# Pagefind search index (generated at build time)
+_pagefind/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+Thumbs.db

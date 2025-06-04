@@ -189,6 +189,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: any
 } & { render(): Render[".md"] };
+"genai-more-than-a-trend.md": {
+	id: "genai-more-than-a-trend.md";
+  slug: "genai-more-than-a-trend";
+  body: string;
+  collection: "blog";
+  data: any
+} & { render(): Render[".md"] };
 "the-next-leap-in-ai.md": {
 	id: "the-next-leap-in-ai.md";
   slug: "the-next-leap-in-ai";
