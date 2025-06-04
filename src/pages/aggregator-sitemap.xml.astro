@@ -1,0 +1,54 @@
+---
+import { tools } from '../data/tools.js';
+import { agents } from '../data/agents.js';
+import { categories } from '../data/categories.js';
+
+const baseUrl = 'https://www.baip.ai';
+const currentDate = new Date().toISOString().split('T')[0];
+
+// Static pages
+const staticPages = [
+  { url: '/aggregator', priority: '1.0', changefreq: 'weekly' },
+  { url: '/aggregator/tools', priority: '0.9', changefreq: 'weekly' },
+  { url: '/aggregator/agents', priority: '0.9', changefreq: 'weekly' },
+  { url: '/aggregator/categories', priority: '0.8', changefreq: 'weekly' },
+  { url: '/aggregator/search', priority: '0.8', changefreq: 'monthly' },
+  { url: '/aggregator/enterprise', priority: '0.7', changefreq: 'monthly' },
+  { url: '/aggregator/about', priority: '0.6', changefreq: 'monthly' },
+  { url: '/aggregator/contact', priority: '0.6', changefreq: 'monthly' },
+];
+
+// Dynamic pages
+const toolPages = tools.map(tool => ({
+  url: `/aggregator/tools/${tool.id}`,
+  priority: '0.8',
+  changefreq: 'monthly'
+}));
+
+const agentPages = agents.map(agent => ({
+  url: `/aggregator/agents/${agent.id}`,
+  priority: '0.8',
+  changefreq: 'monthly'
+}));
+
+const categoryPages = categories.map(category => ({
+  url: `/aggregator/categories/${category.id}`,
+  priority: '0.7',
+  changefreq: 'weekly'
+}));
+
+const allPages = [...staticPages, ...toolPages, ...agentPages, ...categoryPages];
+
+// Set content type to XML
+Astro.response.headers.set('Content-Type', 'application/xml');
+---<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{allPages.map(page => (
+  `  <url>
+    <loc>${baseUrl}${page.url}</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+  </url>`
+)).join('\n')}
+</urlset>

@@ -8,12 +8,14 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npx pagefind --source dist && node scripts/optimize-search.js",
     "build:astro-only": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "fetch-data": "node scripts/fetch-data.js",
-    "process-data": "node scripts/process-data.js"
+    "process-data": "node scripts/process-data.js",
+    "build:search": "npx pagefind --source dist",
+    "optimize:search": "node scripts/optimize-search.js"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.11",
@@ -33,6 +35,7 @@
   },
   "devDependencies": {
     "@types/three": "^0.156.0",
+    "pagefind": "^1.1.0",
     "typescript": "^5.2.2"
   }
 }
